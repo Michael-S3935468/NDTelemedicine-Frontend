@@ -26,14 +26,18 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
-        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
+          title: SizedBox(
+            height: 30,
+            child:  Image.asset('images/Header-Base.png'),
+          ),
+          centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
         ],
       ),
       body: const Center(
-        child: Text('NDTelemedicine'),
+        child: Text('ND Telemedicine'),
       ),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -48,7 +52,7 @@ class MyHomePage extends StatelessWidget {
               child: Text('Drawer Header'),
             ),
             ListTile(
-              leading: Icon(Icons.home,),
+              leading: const Icon(Icons.home,),
               title: const Text('Home'),
               onTap: () {
                 // Update the state of the app
@@ -58,7 +62,7 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_circle,),
+              leading: const Icon(Icons.account_circle,),
               title: const Text('Profile'),
               onTap: () {
                 // Update the state of the app
@@ -68,7 +72,7 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.flag,),
+              leading: const Icon(Icons.flag,),
               title: const Text('Symptoms'),
               onTap: () {
                 // Update the state of the app
@@ -79,7 +83,7 @@ class MyHomePage extends StatelessWidget {
             ),
             Container(
               child: Column(
-                children: <Widget>[
+                children: const <Widget>[
                   Divider(),
                   ListTile(
                     leading: Icon(Icons.logout),
