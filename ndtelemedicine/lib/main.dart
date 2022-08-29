@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: appTitle,
       home: MyHomePage(title: appTitle),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -25,11 +26,10 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(title),
+        title: Text(title),
+        centerTitle: true,
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.medication))
+          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
         ],
       ),
       body: const Center(
@@ -42,15 +42,14 @@ class MyHomePage extends StatelessWidget {
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
-          children: [
+          children: <Widget>[
             const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+              decoration: BoxDecoration(color: Colors.blue,),
               child: Text('Drawer Header'),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              leading: Icon(Icons.home,),
+              title: const Text('Home'),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -59,7 +58,8 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Item 2'),
+              leading: Icon(Icons.account_circle,),
+              title: const Text('Profile'),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -67,6 +67,27 @@ class MyHomePage extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+              leading: Icon(Icons.flag,),
+              title: const Text('Symptoms'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.logout),
+                    // tileColor: Colors.redAccent,
+                    title: Text('Sign Out'),),
+                ],
+              ),
+            )
           ],
         ),
       ),
