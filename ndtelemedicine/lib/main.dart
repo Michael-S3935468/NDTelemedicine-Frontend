@@ -25,6 +25,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
           title: SizedBox(
@@ -36,48 +37,119 @@ class MyHomePage extends StatelessWidget {
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          const SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              SizedBox(width: 25),
-              Text('Home',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 32,
-                  fontFamily: 'Inter',
-                )
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text('Home',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 32,
+                          fontFamily: 'Inter',
+                        )
+                    ),
+                  ]
               ),
-            ]
-          ),
-          const Divider(
-            thickness: 2,
-            color: Color.fromRGBO(112, 112, 112, 1),
-            indent: 25,
-            endIndent: 25,
-          ),
-          const SizedBox(height: 25),
-          const SizedBox(width: 25),
-          const ExpansionTile(
-            leading: Icon(Icons.sentiment_very_satisfied),
-            title: Text('Medication for Today',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                  fontFamily: 'Inter',
-                )
             ),
-            children: <Widget>[
-              ListTile(title: Text('XYZ')),
-            ],
-          ),
-        ],
+            const Divider(
+              thickness: 2,
+              color: Color.fromRGBO(112, 112, 112, 1),
+              indent: 25,
+              endIndent: 25,
+            ),
+
+            // Appointment Widget
+            // TODO: Convert to custom widget to so it can be displayed conditionally and with relevant data
+            Container(
+              margin: const EdgeInsets.all(25),
+              padding: const EdgeInsets.all(5),
+              color: const Color.fromRGBO(215, 215, 216, 1.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Padding(
+                      padding: EdgeInsets.only(right: 5),
+                      child: Icon(Icons.warning_sharp, color: Colors.red, size: 40,)
+                  ),
+                  const Flexible(
+                      child: Text("You have an appointment with Dr. N. Riviera in 15 minutes.")
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 5),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: const Color.fromRGBO(45, 125, 50, 1.0),
+                    ),
+                    onPressed: () { },
+                    child: const Text('Attend'),
+                  ),
+                ],
+              ),
+            ),
+
+            // Medication List Widget
+            // TODO: Convert to custom widget to so it can be displayed with user's medication
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 25),
+              child: const ExpansionTile(
+
+                collapsedBackgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
+                backgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
+                leading: Icon(Icons.sentiment_very_satisfied),
+                title: Text('Medication For Today',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontFamily: 'Inter',
+                    )
+                ),
+                children: <Widget>[
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                ],
+              ),
+            ),
+
+            // Appointment List Widget
+            // TODO: Convert to custom widget to so it can be displayed with user's appointments
+            Container(
+              margin: const EdgeInsets.all(25),
+              child: const ExpansionTile(
+
+                collapsedBackgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
+                backgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
+                leading: Icon(Icons.sentiment_very_satisfied),
+                title: Text('Upcoming Appointments',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontFamily: 'Inter',
+                    )
+                ),
+                children: <Widget>[
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                  ListTile(title: Text('XYZ')),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
+
       drawer: Drawer(
 
-        //drawer Code
         width: MediaQuery.of(context).size.width * 0.77,
         child: Column(
 
