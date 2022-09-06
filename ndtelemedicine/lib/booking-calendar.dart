@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
+import 'package:ndtelemedicine/booking-date.dart';
 
 import 'booked-days.dart';
 
@@ -100,7 +101,13 @@ class _BookingPageState extends State<BookingPage> {
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => BookingDate(bookingDate: _selectedDate),
+                      ),
+                    );
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.green,
                     primary: Colors.white,
