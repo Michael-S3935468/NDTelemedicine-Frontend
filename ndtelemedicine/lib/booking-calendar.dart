@@ -86,9 +86,9 @@ class _BookingPageState extends State<BookingPage> {
               datePickerStyles: styles,
               datePickerLayoutSettings: const dp.DatePickerLayoutSettings(
                 dayPickerRowHeight: 75,
-                maxDayPickerRowCount: 2,
-                showPrevMonthEnd: true,
-                showNextMonthStart: true,
+                // maxDayPickerRowCount: 6,
+                // showPrevMonthEnd: true,
+                // showNextMonthStart: true,
               ),
               selectableDayPredicate: _isSelectableCustom,
               eventDecorationBuilder: _eventDecorationBuilder,
