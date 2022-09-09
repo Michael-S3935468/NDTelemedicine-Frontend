@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ndtelemedicine/notif.dart';
 
 void main() => runApp(const MyApp());
 
@@ -33,7 +34,14 @@ class MyHomePage extends StatelessWidget {
           ),
           centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          IconButton(onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => NotificationPage(),
+                ),
+              );
+            }, icon: const Icon(Icons.notifications)
+          ),
         ],
       ),
       body: Column(
