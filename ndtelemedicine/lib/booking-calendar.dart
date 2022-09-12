@@ -4,16 +4,16 @@ import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 import 'package:ndtelemedicine/booking-date.dart';
 
-import 'booked-days.dart';
+
 
 /// Page with [dp.DayPicker].
 class BookingPage extends StatefulWidget {
-  /// Custom events.
-  final List<BookingDays> events;
+
+  final String doctor;
 
   const BookingPage({
     Key? key,
-    this.events = const [],
+    required this.doctor,
   }) : super(key: key);
 
   @override
@@ -69,8 +69,19 @@ class _BookingPageState extends State<BookingPage> {
       dayHeaderTitleBuilder: _dayHeaderTitleBuilder,
     );
 
-    return Material(
-      child: Flex(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
+        title: SizedBox(
+          height: 30,
+          child: Image.asset('images/Header-Base.png'),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+        ],
+      ),
+      body: Flex(
         direction: MediaQuery.of(context).orientation == Orientation.portrait
             ? Axis.vertical
             : Axis.horizontal,
@@ -91,14 +102,12 @@ class _BookingPageState extends State<BookingPage> {
                 // showNextMonthStart: true,
               ),
               selectableDayPredicate: _isSelectableCustom,
-              eventDecorationBuilder: _eventDecorationBuilder,
             ),
           ),
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(50),
             child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TextButton(
                   onPressed: () {
@@ -137,23 +146,6 @@ class _BookingPageState extends State<BookingPage> {
     return day.weekday < 6;
   }
 
-  dp.EventDecoration? _eventDecorationBuilder(DateTime date) {
-    List<DateTime> eventsDates =
-    widget.events.map<DateTime>((e) => e.date).toList();
-
-    bool isEventDate = eventsDates.any((d) =>
-    date.year == d.year && date.month == d.month && d.day == date.day);
-
-    BoxDecoration roundedBorder = BoxDecoration(
-        border: Border.all(
-          color: Colors.deepOrange,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(3.0)));
-
-    return isEventDate
-        ? dp.EventDecoration(boxDecoration: roundedBorder)
-        : null;
-  }
 }
 
 String _dayHeaderTitleBuilder(
