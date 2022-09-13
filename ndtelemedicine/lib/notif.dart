@@ -89,6 +89,11 @@ class _NotificationPage extends StatelessWidget {
                       ),
                     ),
                     child: Card(
+                      shape: const RoundedRectangleBorder(
+                        side:
+                            BorderSide(color: Color.fromRGBO(112, 112, 112, 1)),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
                       child: ListTile(
                         title: Text("item $item"),
                         subtitle: Text("description here"),
