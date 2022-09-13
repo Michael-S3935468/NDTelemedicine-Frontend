@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ndtelemedicine/booking-calendar.dart';
+import 'package:ndtelemedicine/booking/booking_calendar.dart';
 
 import 'model/doctor.dart';
 
@@ -24,11 +24,23 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
+        title: SizedBox(
+          height: 30,
+          child:  Image.asset('images/Header-Base.png'),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+        ],
+      ),
+      body: Column(
         children: [
           Container(
-            margin: const EdgeInsets.all(25),
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
             child: const Text('Choose a Doctor',
                 style: TextStyle(
                   color: Colors.black,
@@ -36,17 +48,24 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
                   fontFamily: 'Inter',
                 )),
           ),
+          const Divider(
+            thickness: 2,
+            color: Color.fromRGBO(112, 112, 112, 1),
+            indent: 25,
+            endIndent: 25,
+          ),
           Expanded(
-              child: ListView(
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: doctors.length,
-                itemBuilder: (BuildContext context, int index) =>
-                    _buildList(doctors[index]),
-              ),
-            ],
-          ))
+            child: ListView(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: doctors.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      _buildList(doctors[index]),
+                ),
+              ],
+            )
+          )
         ],
       ),
     );
@@ -56,21 +75,21 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
   Widget _buildList(Doctor doctor) {
     return Builder(builder: (context) {
       return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: const Color(0xFFD9D9D9),
         ),
         child: ListTile(
-          leading: const Icon(Icons.self_improvement),
+          leading: Icon((doctor.gender == "Male") ? Icons.man : Icons.woman),
           title: Text(doctor.name),
           subtitle: Text("${doctor.specialist}\n${doctor.gender}"),
           trailing: TextButton(
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => BookingPage(doctor: doctor.name),
+                  builder: (context) => BookingCalendarPage(doctor: doctor),
                 ),
               );
             },
