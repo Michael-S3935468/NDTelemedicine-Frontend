@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'booking_confirm.dart';
 import 'model/appointment.dart';
+import 'model/doctor.dart';
 
-class BookingDate extends StatefulWidget {
+class BookingAppointmentPage extends StatefulWidget {
   final DateTime bookingDate;
+  final Doctor doctor;
 
-  const BookingDate({
+  const BookingAppointmentPage({
     Key? key,
     required this.bookingDate,
+    required this.doctor,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _BookingDateState();
+  State<StatefulWidget> createState() => _BookingAppointmentPageState();
 }
 
-class _BookingDateState extends State<BookingDate> {
+class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
   List<Appointment> appointments = [];
 
   // Get appointments
@@ -43,8 +47,24 @@ class _BookingDateState extends State<BookingDate> {
         ),
         body: Column(
           children: [
+            Container(
+              alignment: Alignment.topLeft,
+              margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
+              child: const Text('Select a Time Slot',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 32,
+                    fontFamily: 'Inter',
+                  )),
+            ),
+            const Divider(
+              thickness: 2,
+              color: Color.fromRGBO(112, 112, 112, 1),
+              indent: 25,
+              endIndent: 25,
+            ),
             Padding(
-              padding: EdgeInsets.all(25),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Center(
                 child: Text(
                   DateFormat('d MMMM y').format(widget.bookingDate),
@@ -76,7 +96,7 @@ class _BookingDateState extends State<BookingDate> {
 
   // Widget that displays available appointments
   Widget _buildList(Appointment list) {
-    if (list.booked != "booked") {
+    if (list.booked == "available") {
       return Builder(builder: (context) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -94,15 +114,19 @@ class _BookingDateState extends State<BookingDate> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        backgroundColor: (list.booked == "available") ? Colors.green : Colors.red,
-                        primary: Colors.white,
-                        fixedSize: Size(MediaQuery.of(context).size.width, 50),
-                      ),
-                      child: Text(
-                          (list.booked == "available") ? "Available" : "Cancel"
-                      )
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => BookingAppointmentConfirmationPage(bookingDate: widget.bookingDate, doctor: widget.doctor, bookingTime: list.time)
+                          )
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      primary: Colors.white,
+                      fixedSize: Size(MediaQuery.of(context).size.width, 50),
+                    ),
+                    child: const Text("Available")
                   ),
                 )
               ],
