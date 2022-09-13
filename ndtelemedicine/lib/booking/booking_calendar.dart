@@ -2,29 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
-import 'package:ndtelemedicine/booking-date.dart';
 
+import 'booking_appointment.dart';
+import 'model/doctor.dart';
 
+class BookingCalendarPage extends StatefulWidget {
 
-/// Page with [dp.DayPicker].
-class BookingPage extends StatefulWidget {
+  final Doctor doctor;
 
-  final String doctor;
-
-  const BookingPage({
+  const BookingCalendarPage({
     Key? key,
     required this.doctor,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _BookingPageState();
+  State<StatefulWidget> createState() => _BookingCalendarPageState();
 }
 
-class _BookingPageState extends State<BookingPage> {
+class _BookingCalendarPageState extends State<BookingCalendarPage> {
   DateTime _selectedDate = DateTime.now();
 
   final DateTime _firstDate = DateTime.now();
-  final DateTime _lastDate = DateTime.now().add(const Duration(days: 28));
+  final DateTime _lastDate = DateTime.now().add(Duration(days: 42 - DateTime.now().weekday));
 
   Color selectedDateStyleColor = Colors.blue;
   Color selectedSingleDateDecorationColor = Colors.red;
@@ -39,6 +38,11 @@ class _BookingPageState extends State<BookingPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_selectedDate.weekday == 6) {
+      _selectedDate.add(const Duration(days: 2));
+    } else if (_selectedDate.weekday == 7) {
+      _selectedDate.add(const Duration(days: 1));
+    }
     // add selected colors to default settings
     dp.DatePickerRangeStyles styles = dp.DatePickerRangeStyles(
       selectedDateStyle: Theme.of(context)
@@ -88,6 +92,22 @@ class _BookingPageState extends State<BookingPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
+            child: const Text('Select a Date',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 32,
+                  fontFamily: 'Inter',
+                )),
+          ),
+          const Divider(
+            thickness: 2,
+            color: Color.fromRGBO(112, 112, 112, 1),
+            indent: 25,
+            endIndent: 25,
+          ),
           Expanded(
             child: dp.DayPicker.single(
               selectedDate: _selectedDate,
@@ -96,10 +116,10 @@ class _BookingPageState extends State<BookingPage> {
               lastDate: _lastDate,
               datePickerStyles: styles,
               datePickerLayoutSettings: const dp.DatePickerLayoutSettings(
-                dayPickerRowHeight: 75,
-                // maxDayPickerRowCount: 6,
-                // showPrevMonthEnd: true,
-                // showNextMonthStart: true,
+                dayPickerRowHeight: 60,
+                maxDayPickerRowCount: 2,
+                showPrevMonthEnd: true,
+                showNextMonthStart: true,
               ),
               selectableDayPredicate: _isSelectableCustom,
             ),
@@ -113,7 +133,7 @@ class _BookingPageState extends State<BookingPage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => BookingDate(bookingDate: _selectedDate),
+                          builder: (context) => BookingAppointmentPage(bookingDate: _selectedDate, doctor: widget.doctor),
                       ),
                     );
                   },
