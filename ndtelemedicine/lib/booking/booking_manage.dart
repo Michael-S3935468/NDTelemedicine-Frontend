@@ -7,7 +7,6 @@ class BookingManagePage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _BookingManagePage();
-
 }
 
 class _BookingManagePage extends State<BookingManagePage> {
@@ -33,7 +32,10 @@ class _BookingManagePage extends State<BookingManagePage> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notifications)
+          ),
         ],
       ),
       body: Column(
@@ -46,7 +48,8 @@ class _BookingManagePage extends State<BookingManagePage> {
                   color: Colors.black,
                   fontSize: 32,
                   fontFamily: 'Inter',
-                )),
+                )
+            ),
           ),
           const Divider(
             thickness: 2,
@@ -55,16 +58,20 @@ class _BookingManagePage extends State<BookingManagePage> {
             endIndent: 25,
           ),
           Expanded(
-              child: ListView(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: userAppointments.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        _buildList(userAppointments[index]),
-                  ),
-                ],
-              )
+            child: ListView(
+              children: [
+                (userAppointments.isNotEmpty)
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: userAppointments.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            _buildList(userAppointments[index]),
+                      )
+                    : const Center(
+                        child: Text("You have no appointments booked"),
+                      ),
+              ],
+            )
           )
         ],
       ),
@@ -72,6 +79,7 @@ class _BookingManagePage extends State<BookingManagePage> {
   }
 
   Widget _buildList(Appointment list) {
+    // Temporary Logic
     if (list.booked == "user") {
       return Builder(builder: (context) {
         return Container(
@@ -94,31 +102,54 @@ class _BookingManagePage extends State<BookingManagePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                      padding:
+                          const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                       child: TextButton(
                           // TODO : Navigate to booking appointments page for same day and if booking confirmed, remove current booking
                           onPressed: null,
                           style: TextButton.styleFrom(
                             backgroundColor: Colors.green,
                             primary: Colors.white,
-                            fixedSize: Size(MediaQuery.of(context).size.width*0.3, 50),
+                            fixedSize: Size(
+                                MediaQuery.of(context).size.width * 0.3, 50),
                           ),
                           child: const Text("Change Time")
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                      padding:
+                          const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       // TODO : Show dialog to confirm deletion and delete if accepted
                       child: TextButton(
-                        onPressed: null,
+                        onPressed: () => showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: const Text("Cancel Appointment"),
+                                  content: Text(
+                                      "Please confirm the cancellation of your appointment with Dr. x on ${list.date} during ${list.time}"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text("I've Change my Mind")
+                                    ),
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child:
+                                            const Text("Confirm Cancellation")
+                                    )
+                                  ],
+                                )
+                        ),
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.redAccent,
                           primary: Colors.white,
-                          fixedSize: Size(MediaQuery.of(context).size.width*0.3, 50),
+                          fixedSize:
+                              Size(MediaQuery.of(context).size.width * 0.3, 50),
                         ),
-                        child: const Text("Cancel Appointment",
-                                textAlign: TextAlign.center,
-                                ),
+                        child: const Text(
+                          "Cancel Appointment",
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     )
                   ],
@@ -131,5 +162,4 @@ class _BookingManagePage extends State<BookingManagePage> {
     }
     return const SizedBox();
   }
-
 }
