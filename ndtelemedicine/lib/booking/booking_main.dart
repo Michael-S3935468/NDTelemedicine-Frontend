@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'booking_manage.dart';
 import 'booking_doctor.dart';
 
 class BookingPage extends StatefulWidget {
@@ -59,7 +60,13 @@ class _BookingPage extends State<BookingPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const BookingManagePage(),
+                      ),
+                    );
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
