@@ -80,12 +80,19 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
             Expanded(
                 child: ListView(
                   children: [
+                    (appointments.isNotEmpty)
+                        ?
                     ListView.builder(
                       shrinkWrap: true,
                       itemCount: appointments.length,
                       itemBuilder: (BuildContext context, int index) =>
                           _buildList(appointments[index]),
+                    )
+                        :
+                    const Center(
+                      child: Text("There are no appointments available on this day"),
                     ),
+
                   ],
                 )
             )
@@ -96,7 +103,7 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
 
   // Widget that displays available appointments
   Widget _buildList(Appointment list) {
-    if (list.booked == "available") {
+    if (list.booked == "available" && list.date == DateFormat('d MMMM y').format(widget.bookingDate)) {
       return Builder(builder: (context) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
