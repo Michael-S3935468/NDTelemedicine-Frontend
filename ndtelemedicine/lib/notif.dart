@@ -22,10 +22,11 @@ class NotificationPage extends StatelessWidget {
 class _NotificationPage extends StatelessWidget {
   const _NotificationPage({super.key});
 
+  static const appTitle = 'NDTelemedicine';
+
   @override
   Widget build(BuildContext context) {
     List<int> items = List<int>.generate(5, (int index) => index);
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
@@ -38,11 +39,29 @@ class _NotificationPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => MyHomePage(title: "ND Telemedicine"),
+                    builder: (context) => const MyHomePage(title: appTitle),
                   ),
                 );
               },
               icon: const Icon(Icons.home)),
+          actions: [
+            IconButton(
+                onPressed: () =>
+                    ScaffoldMessenger.of(context).showMaterialBanner(
+                      MaterialBanner(
+                          leading: const Icon(Icons.swipe_outlined),
+                          padding: const EdgeInsets.all(20),
+                          content: const Text("Swipe to dismiss notifications"),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Close'),
+                              onPressed: () => ScaffoldMessenger.of(context)
+                                  .hideCurrentMaterialBanner(),
+                            ),
+                          ]),
+                    ),
+                icon: const Icon(Icons.info))
+          ],
         ),
         body: Column(
           children: <Widget>[
@@ -88,17 +107,14 @@ class _NotificationPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    child: Card(
-                      shape: const RoundedRectangleBorder(
-                        side:
-                            BorderSide(color: Color.fromRGBO(112, 112, 112, 1)),
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      ),
-                      child: ListTile(
-                        title: Text("item $item"),
-                        subtitle: Text("description here"),
-                      ),
+                    child: ListTile(
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 20),
+                      title: Text("item $item"),
+                      subtitle: Text("description here"),
                     ),
+
+
                     onDismissed: (direction) {
                       items.removeAt(index);
 
