@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                             );
                           });
                     },
-                    style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
                     child: const Text(
                       "Sign Up",
                       style: TextStyle(color: Colors.white, fontSize: 25),
