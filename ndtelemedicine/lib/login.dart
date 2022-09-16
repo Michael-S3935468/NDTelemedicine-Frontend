@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/Login-Background.png'), opacity: 0.7,
+            image: AssetImage('images/Login-Background.png'), opacity: 0.6,
             fit: BoxFit.fitHeight,
             alignment: Alignment.centerRight,
           ),
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
-                    border: OutlineInputBorder(),
+                    border: UnderlineInputBorder(),
                     labelText: "example@domain.net",
                     hintText: "Enter valid email",
                   ),
@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      border: OutlineInputBorder(),
+                      border: UnderlineInputBorder(),
                       labelText: "Enter password here",
                       suffixIcon: IconButton(
                         icon: Icon(_isObscure
