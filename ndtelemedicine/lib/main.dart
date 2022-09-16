@@ -130,7 +130,7 @@ class MyHomePage extends StatelessWidget {
                   title: const Text('Sign Out'),
                   onTap: () {
                     // Produces error if tapped
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
                   },
                 ),
               ),
