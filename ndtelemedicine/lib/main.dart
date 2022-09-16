@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'profile/profile.dart';
 
 void main() => runApp(const MyApp());
 
@@ -107,7 +108,11 @@ class MyHomePage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.account_circle),
               title: const Text('Profile'),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ProfilePage())
+                );
+              },
             ),
             const Divider(
               color: Colors.white,
