@@ -26,6 +26,7 @@ class _ChatPage extends State<ChatPage> {
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -45,6 +46,25 @@ class _ChatPage extends State<ChatPage> {
               ],
             )
           ),
+          Expanded(
+            child: ListTile(
+              title: Text("text1"),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: const TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Chat',
+                  ),
+                ),
+              ),
+
+            ],
+          )
+
         ],
       ),
     );
