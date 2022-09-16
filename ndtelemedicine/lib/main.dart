@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ndtelemedicine/login.dart';
 
-void main() => runApp(const MyApp());
+
+// void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -126,7 +128,10 @@ class MyHomePage extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Sign Out'),
-                  onTap: () {},
+                  onTap: () {
+                    // Produces error if tapped
+                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                  },
                 ),
               ),
             ),
