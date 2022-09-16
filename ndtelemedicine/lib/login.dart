@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/main.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
@@ -38,11 +40,12 @@ class _LoginPageState extends State<LoginPage> {
         centerTitle: true,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/Login-Background.png'), opacity: 0.6,
+            image: AssetImage('images/Login-Background.png'),
+            opacity: 0.6,
             fit: BoxFit.fitHeight,
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
           ),
         ),
         child: Padding(
@@ -90,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      border: UnderlineInputBorder(),
+                      border: const UnderlineInputBorder(),
                       labelText: "Enter password here",
                       suffixIcon: IconButton(
                         icon: Icon(_isObscure
@@ -130,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(
                     child: Container(
                         margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                        child: Divider(
+                        child: const Divider(
                           color: Colors.black,
                           height: 36,
                         )),
@@ -139,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(
                     child: Container(
                         margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-                        child: Divider(
+                        child: const Divider(
                           color: Colors.black,
                           height: 36,
                         )),
@@ -172,8 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                             );
                           });
                     },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueGrey),
+                    style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
                     child: const Text(
                       "Sign Up",
                       style: TextStyle(color: Colors.white, fontSize: 25),
@@ -186,7 +188,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
-    ;
   }
 }
