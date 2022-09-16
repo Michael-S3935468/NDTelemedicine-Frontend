@@ -10,8 +10,19 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePage extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
+        title: SizedBox(
+          height: 30,
+          child:  Image.asset('images/Header-Base.png'),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+        ],
+      ),
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
