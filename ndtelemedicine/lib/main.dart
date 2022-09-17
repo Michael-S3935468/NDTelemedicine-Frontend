@@ -101,7 +101,7 @@ class MyHomePage extends StatelessWidget {
 
                 collapsedBackgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
                 backgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
-                leading: Icon(Icons.sentiment_very_satisfied),
+                leading: Icon(Icons.medication_outlined),
                 title: Text('Medication For Today',
                     style: TextStyle(
                       color: Colors.black,
@@ -127,7 +127,7 @@ class MyHomePage extends StatelessWidget {
 
                 collapsedBackgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
                 backgroundColor: Color.fromRGBO(215, 215, 216, 1.0),
-                leading: Icon(Icons.sentiment_very_satisfied),
+                leading: Icon(Icons.event),
                 title: Text('Upcoming Appointments',
                     style: TextStyle(
                       color: Colors.black,
