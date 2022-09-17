@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/main.dart';
+import 'package:ndtelemedicine/signup.dart';
 
 void main() => runApp(const MyApp());
 
@@ -73,16 +74,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
-                  // child: TextField(
-                  //   controller: nameController,
-                  //   decoration: const InputDecoration(
-                  //     filled: true,
-                  //     fillColor: Colors.white,
-                  //     border: UnderlineInputBorder(),
-                  //     labelText: "example@domain.net",
-                  //     hintText: "Enter valid email",
-                  //   ),
-                  // ),
                   child: TextFormField(
                     controller: nameController,
                     decoration: const InputDecoration(
@@ -103,26 +94,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
-                  // child: TextField(
-                  //   controller: passwordController,
-                  //   obscureText: _isObscure,
-                  //   decoration: InputDecoration(
-                  //       filled: true,
-                  //       fillColor: Colors.white,
-                  //       border: const UnderlineInputBorder(),
-                  //       labelText: "Enter password here",
-                  //       suffixIcon: IconButton(
-                  //         icon: Icon(_isObscure
-                  //             ? Icons.visibility_off
-                  //             : Icons.visibility),
-                  //         onPressed: () {
-                  //           setState(() {
-                  //             _isObscure = !_isObscure;
-                  //           });
-                  //         },
-                  //       ),
-                  //       hintText: "Enter secure password"),
-                  // ),
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: _isObscure,
@@ -158,23 +129,15 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: ElevatedButton(
-                      // onPressed: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => const MyHomePage(
-                      //       title: "NDTelemedicine",
-                      //     )));
-                      //
-                      // },
-
                       // Validation Check
                       onPressed: () {
-                        if (_LoginKey.currentState!.validate()) {
-                          //If the form is valid, login is successful and proceed to home page
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const MyHomePage(
-                                    title: "NDTelemedicine",
-                                  )));
-                        }
+                        // if (_LoginKey.currentState!.validate()) {
+                        //   //If the form is valid, login is successful and proceed to home page
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) => const MyHomePage(
+                        //             title: "NDTelemedicine",
+                        //           )));
+                        // }
                       },
                       child: const Text(
                         "Login",
@@ -212,23 +175,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: ElevatedButton(
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Thanks!'),
-                                content: Text(
-                                    'You typed "${nameController.text}", the password was  "${passwordController.text}" '),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            });
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SignUpPage()));
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueGrey),
