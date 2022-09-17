@@ -9,14 +9,12 @@ class BookingAppointmentConfirmationPage extends StatefulWidget {
   final Doctor doctor;
   final String bookingTime;
 
-
   const BookingAppointmentConfirmationPage({
     Key? key,
     required this.bookingDate,
     required this.doctor,
     required this.bookingTime
   }) : super(key: key);
-
 
   @override
   State<StatefulWidget> createState() => _BookingAppointmentConfirmationPage();
@@ -41,6 +39,8 @@ class _BookingAppointmentConfirmationPage extends State<BookingAppointmentConfir
       ),
       body: Column(
         children: [
+
+          // Header
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -57,52 +57,56 @@ class _BookingAppointmentConfirmationPage extends State<BookingAppointmentConfir
             indent: 25,
             endIndent: 25,
           ),
+
+          // Confirmation Information
           Expanded(
-              child: Column(
-                children: [
-                  const Icon(Icons.event_available,
-                  size: 100,),
-                  const Text("Please confirm your Booking",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+            child: Column(
+              children: [
+                const Icon(Icons.event_available,
+                size: 100,),
+                const Text("Please confirm your Booking",
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  const Text("with",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                ),
+                const Text("with",
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  Text("Dr. ${widget.doctor.name}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                ),
+                Text("Dr. ${widget.doctor.name}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
-                  const Text("on",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                ),
+                const Text("on",
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  Text(DateFormat('d MMMM y').format(widget.bookingDate),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                ),
+                Text(DateFormat('d MMMM y').format(widget.bookingDate),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
-                  const Text("from",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                ),
+                const Text("from",
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  Text(widget.bookingTime,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  )
-                ],
-              )
+                ),
+                Text(widget.bookingTime,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                )
+              ],
+            )
           ),
+
+          // Confirmation button
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(50),
@@ -128,8 +132,6 @@ class _BookingAppointmentConfirmationPage extends State<BookingAppointmentConfir
               ],
             ),
           ),
-
-
         ],
       ),
     );

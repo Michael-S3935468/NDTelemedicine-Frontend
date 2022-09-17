@@ -40,6 +40,8 @@ class _BookingManagePage extends State<BookingManagePage> {
       ),
       body: Column(
         children: [
+
+          // Header
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -60,6 +62,8 @@ class _BookingManagePage extends State<BookingManagePage> {
           Expanded(
             child: ListView(
               children: [
+
+                // Display list of appointments booked by current user if any
                 (userAppointments.isNotEmpty)
                     ? ListView.builder(
                         shrinkWrap: true,
@@ -78,6 +82,7 @@ class _BookingManagePage extends State<BookingManagePage> {
     );
   }
 
+  // Builder that builds the list of appointments
   Widget _buildList(Appointment list) {
     // Temporary Logic
     if (list.booked == "user") {

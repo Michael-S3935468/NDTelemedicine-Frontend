@@ -88,6 +88,8 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+
+          // Header
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -104,6 +106,8 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
             indent: 25,
             endIndent: 25,
           ),
+
+          // Calendar
           Expanded(
             child: dp.DayPicker.single(
               selectedDate: _selectedDate,
@@ -120,6 +124,8 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
               selectableDayPredicate: _isSelectableCustom,
             ),
           ),
+
+          // Button
           Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(50),
@@ -148,6 +154,7 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
         ],
       ),
     );
+  }
 
   // if current day is a weekend, change the default selected date
   void _noWeekend() {
@@ -160,13 +167,14 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
     });
   }
 
+  // handler to change the date selected
   void _onSelectedDateChanged(DateTime newDate) {
     setState(() {
       _selectedDate = newDate;
     });
   }
 
-  // ignore: prefer_expression_function_bodies
+  // makes the weekends not selectable
   bool _isSelectableCustom(DateTime day) {
     return day.weekday < 6;
   }

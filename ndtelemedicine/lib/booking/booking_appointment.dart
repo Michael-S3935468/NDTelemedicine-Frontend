@@ -47,6 +47,8 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
         ),
         body: Column(
           children: [
+
+            // Header
             Container(
               alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -63,6 +65,8 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
               indent: 25,
               endIndent: 25,
             ),
+
+            // Display date of the following appointments
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Center(
@@ -77,9 +81,11 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
                 ),
               ),
             ),
+
             Expanded(
                 child: ListView(
                   children: [
+                    // Display list of appointments if any
                     (appointments.isNotEmpty)
                         ?
                     ListView.builder(
@@ -124,7 +130,11 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
                     onPressed: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => BookingAppointmentConfirmationPage(bookingDate: widget.bookingDate, doctor: widget.doctor, bookingTime: list.time)
+                              builder: (context) => BookingAppointmentConfirmationPage(
+                                  bookingDate: widget.bookingDate,
+                                  doctor: widget.doctor,
+                                  bookingTime: list.time
+                              )
                           )
                       );
                     },

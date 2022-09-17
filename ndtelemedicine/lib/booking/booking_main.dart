@@ -12,9 +12,22 @@ class BookingPage extends StatefulWidget {
 class _BookingPage extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
+        title: SizedBox(
+          height: 30,
+          child:  Image.asset('images/Header-Base.png'),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+        ],
+      ),
+      body: Column(
         children: [
+
+          // Header
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -31,6 +44,7 @@ class _BookingPage extends State<BookingPage> {
             indent: 25,
             endIndent: 25,
           ),
+
           Expanded(
               child: GridView.count(
                 shrinkWrap: true,
@@ -38,8 +52,10 @@ class _BookingPage extends State<BookingPage> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 padding: const EdgeInsets.symmetric(horizontal: 25),
-                crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 2,
+                crossAxisCount: 1,
                 children: [
+
+                // Button to navigate to book a new appointment
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(
@@ -59,6 +75,8 @@ class _BookingPage extends State<BookingPage> {
                     ],
                   ),
                 ),
+
+                // Button to navigate to manage appointments
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(

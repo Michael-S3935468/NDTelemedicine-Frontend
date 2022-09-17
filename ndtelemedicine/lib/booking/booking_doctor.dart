@@ -38,6 +38,8 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
       ),
       body: Column(
         children: [
+
+          // Header
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
@@ -54,6 +56,8 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
             indent: 25,
             endIndent: 25,
           ),
+
+          // Display list of Doctors
           Expanded(
             child: ListView(
               children: [
