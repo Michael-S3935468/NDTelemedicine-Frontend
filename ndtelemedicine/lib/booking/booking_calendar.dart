@@ -38,11 +38,7 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_selectedDate.weekday == 6) {
-      _selectedDate.add(const Duration(days: 2));
-    } else if (_selectedDate.weekday == 7) {
-      _selectedDate.add(const Duration(days: 1));
-    }
+    _noWeekend();
     // add selected colors to default settings
     dp.DatePickerRangeStyles styles = dp.DatePickerRangeStyles(
       selectedDateStyle: Theme.of(context)
@@ -153,6 +149,15 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
       ),
     );
 
+  // if current day is a weekend, change the default selected date
+  void _noWeekend() {
+    setState(() {
+      if (_selectedDate.weekday == 6) {
+        _selectedDate = DateTime.now().add(const Duration(days: 2));
+      } else if (_selectedDate.weekday == 7) {
+        _selectedDate = DateTime.now().add(const Duration(days: 1));
+      }
+    });
   }
 
   void _onSelectedDateChanged(DateTime newDate) {
