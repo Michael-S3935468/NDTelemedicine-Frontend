@@ -34,7 +34,9 @@ class _SignUpPage extends State<SignUpPage> {
   bool _isPasswordVisibile = true;
   bool _isConfrimPasswordVisibile = true;
   bool _termsChecked = true;
+  bool vertical = false;
 
+  final List<bool> _initialSexList = <bool>[true, false, false];
   List<DropdownMenuItem<int>> sexList = [];
 
   // Function to load List of Genders for user to choose
@@ -74,6 +76,24 @@ class _SignUpPage extends State<SignUpPage> {
     if (_formKey.currentState!.validate() && _termsChecked) {
       _formKey.currentState?.save();
 
+      // FOR TESTING - showing the inputs after the user has submitted
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Thanks!'),
+              content: Text(
+                  'Name: "$_name",\nemail: "$_email",\nAge: "$_age",\nSex: "$_selectedSex",\nPassword:"$_password",\n '),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          });
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Form Submitted")));
     }
@@ -94,13 +114,13 @@ class _SignUpPage extends State<SignUpPage> {
       ),
       body: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/Login-Background.png'),
-            opacity: 0.6,
-            fit: BoxFit.fitHeight,
-            alignment: Alignment.center,
-          ),
-        ),
+            // image: DecorationImage(
+            //   image: AssetImage('images/Login-Background.png'),
+            //   opacity: 0.6,
+            //   fit: BoxFit.fitHeight,
+            //   alignment: Alignment.center,
+            // ),
+            ),
         child: Form(
           key: _formKey,
           child: Padding(
@@ -111,10 +131,11 @@ class _SignUpPage extends State<SignUpPage> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: "Enter Name",
-                      hintText: "Name",
+                      labelText: "Name*",
+                      hintText: "FirstName LastName",
                       filled: true,
                       fillColor: Colors.white,
+                      icon: Icon(Icons.person),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -134,10 +155,11 @@ class _SignUpPage extends State<SignUpPage> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: "Enter Email",
+                      labelText: "Email*",
                       hintText: "example@domain.net",
                       filled: true,
                       fillColor: Colors.white,
+                      icon: Icon(Icons.mail),
                     ),
                     validator: validateEmail,
                     onSaved: (value) {
@@ -149,29 +171,43 @@ class _SignUpPage extends State<SignUpPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.white,
-                  ),
-                  child: DropdownButton(
-                    items: sexList,
-                    value: _selectedSex,
-                    isExpanded: true,
-                    hint: const Text("Select Sex"),
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedSex = int.parse(value.toString());
-                      });
-                    },
+                  child: Column(
+                    children: <Widget>[
+                      const Text('Sex',
+                          style: TextStyle(
+                              color: Color.fromRGBO(112, 112, 112, 1),
+                              fontSize: 18)),
+                      const SizedBox(height: 5),
+                      ToggleButtons(
+                        direction: vertical ? Axis.vertical : Axis.horizontal,
+                        onPressed: (int index) {
+                          setState(() {
+                            for (int i = 0; i < _initialSexList.length; i++) {
+                              _initialSexList[i] = i == index;
+                            }
+                            _selectedSex = int.parse(index.toString());
+                          });
+                        },
+                        borderRadius: BorderRadius.circular(10.0),
+                        selectedBorderColor: Colors.blue[700],
+                        selectedColor: Colors.white,
+                        fillColor: Colors.blueAccent,
+                        constraints: const BoxConstraints(
+                          minHeight: 60.0,
+                          minWidth: 60.0,
+                        ),
+                        isSelected: _initialSexList,
+                        children: sexList,
+                      ),
+                    ],
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: "Enter Age",
-                      hintText: "Age",
+                      labelText: "Age*",
+                      hintText: "How old are you?",
                       filled: true,
                       fillColor: Colors.white,
                     ),
@@ -200,8 +236,7 @@ class _SignUpPage extends State<SignUpPage> {
                     key: _passKey,
                     obscureText: _isPasswordVisibile,
                     decoration: InputDecoration(
-                      labelText: "Enter password",
-                      hintText: "Password",
+                      labelText: "Password*",
                       filled: true,
                       fillColor: Colors.white,
                       suffixIcon: IconButton(
@@ -231,8 +266,7 @@ class _SignUpPage extends State<SignUpPage> {
                   child: TextFormField(
                     obscureText: _isConfrimPasswordVisibile,
                     decoration: InputDecoration(
-                      labelText: "Confirm Password",
-                      hintText: "Password",
+                      labelText: "Re-type password*",
                       filled: true,
                       fillColor: Colors.white,
                       suffixIcon: IconButton(
@@ -297,7 +331,7 @@ class _SignUpPage extends State<SignUpPage> {
                     // },
                     onPressed: onPressedSubmit,
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueGrey),
+                        backgroundColor: Colors.blueAccent),
                     child: const Text(
                       "Sign Up",
                       style: TextStyle(color: Colors.white, fontSize: 25),
