@@ -28,33 +28,19 @@ class _SignUpPage extends State<SignUpPage> {
   String _email = '';
   int _age = -1;
   int _selectedSex = 0;
-  int _selectedSymptoms = 0;
   String _password = '';
 
-  bool _isPasswordVisibile = true;
-  bool _isConfrimPasswordVisibile = true;
-  bool _termsChecked = true;
+  bool _isPasswordVisible = true;
+  bool _isConfirmPasswordVisible = true;
+  bool _termsChecked = false;
   bool vertical = false;
 
   final List<bool> _initialSexList = <bool>[true, false, false];
-  List<DropdownMenuItem<int>> sexList = [];
-
-  // Function to load List of Genders for user to choose
-  void loadSexList() {
-    sexList = [];
-    sexList.add(const DropdownMenuItem(
-      child: Text("Male"),
-      value: 0,
-    ));
-    sexList.add(const DropdownMenuItem(
-      child: Text("Female"),
-      value: 1,
-    ));
-    sexList.add(const DropdownMenuItem(
-      child: Text("Other"),
-      value: 2,
-    ));
-  }
+  List<Widget> sexList = const <Widget>[
+    Text('Male'),
+    Text('Female'),
+    Text('Other')
+  ];
 
   // Validation Check for email
   String? validateEmail(String? value) {
@@ -83,7 +69,7 @@ class _SignUpPage extends State<SignUpPage> {
             return AlertDialog(
               title: const Text('Thanks!'),
               content: Text(
-                  'Name: "$_name",\nemail: "$_email",\nAge: "$_age",\nSex: "$_selectedSex",\nPassword:"$_password",\n '),
+                  'Name: $_name\nemail: $_email\nAge: $_age\nSex: $_selectedSex\nPassword:$_password\n '),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
@@ -101,7 +87,7 @@ class _SignUpPage extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    loadSexList();
+    // loadSexList();
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false,
@@ -234,18 +220,18 @@ class _SignUpPage extends State<SignUpPage> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     key: _passKey,
-                    obscureText: _isPasswordVisibile,
+                    obscureText: _isPasswordVisible,
                     decoration: InputDecoration(
                       labelText: "Password*",
                       filled: true,
                       fillColor: Colors.white,
                       suffixIcon: IconButton(
-                        icon: Icon(_isPasswordVisibile
+                        icon: Icon(_isPasswordVisible
                             ? Icons.visibility_off
                             : Icons.visibility),
                         onPressed: () {
                           setState(() {
-                            _isPasswordVisibile = !_isPasswordVisibile;
+                            _isPasswordVisible = !_isPasswordVisible;
                           });
                         },
                       ),
@@ -264,19 +250,19 @@ class _SignUpPage extends State<SignUpPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
-                    obscureText: _isConfrimPasswordVisibile,
+                    obscureText: _isConfirmPasswordVisible,
                     decoration: InputDecoration(
                       labelText: "Re-type password*",
                       filled: true,
                       fillColor: Colors.white,
                       suffixIcon: IconButton(
-                        icon: Icon(_isConfrimPasswordVisibile
+                        icon: Icon(_isConfirmPasswordVisible
                             ? Icons.visibility_off
                             : Icons.visibility),
                         onPressed: () {
                           setState(() {
-                            _isConfrimPasswordVisibile =
-                                !_isConfrimPasswordVisibile;
+                            _isConfirmPasswordVisible =
+                                !_isConfirmPasswordVisible;
                           });
                         },
                       ),
