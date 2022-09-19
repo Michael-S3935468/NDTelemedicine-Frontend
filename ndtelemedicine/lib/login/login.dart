@@ -57,8 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
                   child: const Text(
                     "Login",
                     style: TextStyle(
@@ -73,25 +72,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
-                  // child: TextField(
-                  //   controller: nameController,
-                  //   decoration: const InputDecoration(
-                  //     filled: true,
-                  //     fillColor: Colors.white,
-                  //     border: UnderlineInputBorder(),
-                  //     labelText: "example@domain.net",
-                  //     hintText: "Enter valid email",
-                  //   ),
-                  // ),
+                  // Email form, if form is null return an error
                   child: TextFormField(
                     controller: nameController,
                     decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        labelText: "example@domain.net"),
+                        labelText: "Enter Email here",
+                        hintText:  "example@domain.net"
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Enter Valid E-mail!";
+                        return "Please enter an email!";
                       }
                       return null;
                     },
@@ -103,26 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
-                  // child: TextField(
-                  //   controller: passwordController,
-                  //   obscureText: _isObscure,
-                  //   decoration: InputDecoration(
-                  //       filled: true,
-                  //       fillColor: Colors.white,
-                  //       border: const UnderlineInputBorder(),
-                  //       labelText: "Enter password here",
-                  //       suffixIcon: IconButton(
-                  //         icon: Icon(_isObscure
-                  //             ? Icons.visibility_off
-                  //             : Icons.visibility),
-                  //         onPressed: () {
-                  //           setState(() {
-                  //             _isObscure = !_isObscure;
-                  //           });
-                  //         },
-                  //       ),
-                  //       hintText: "Enter secure password"),
-                  // ),
+                  // Password form, if form is null return an error
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: _isObscure,
@@ -130,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true,
                       fillColor: Colors.white,
                       labelText: "Enter password here",
+                      hintText:  "Password",
                       suffixIcon: IconButton(
                         icon: Icon(_isObscure
                             ? Icons.visibility_off
@@ -143,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Enter valid password";
+                        return "Please enter a password!";
                       }
                       return null;
                     },
@@ -157,16 +131,9 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(20),
                     ),
+                    // Login Button, proceeds to navigate to home page if checks are valid
                     child: ElevatedButton(
-                      // onPressed: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => const MyHomePage(
-                      //       title: "NDTelemedicine",
-                      //     )));
-                      //
-                      // },
-
-                      // Validation Check
+                      // Validation Check, checks if both email and password form are valid
                       onPressed: () {
                         if (_LoginKey.currentState!.validate()) {
                           //If the form is valid, login is successful and proceed to home page
@@ -185,8 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                   Row(children: <Widget>[
                     Expanded(
                       child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 10.0, right: 20.0),
+                          margin: const EdgeInsets.only(left: 10.0, right: 20.0),
                           child: const Divider(
                             color: Colors.black,
                             height: 36,
@@ -195,8 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                     const Text("OR"),
                     Expanded(
                       child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 20.0, right: 10.0),
+                          margin: const EdgeInsets.only(left: 20.0, right: 10.0),
                           child: const Divider(
                             color: Colors.black,
                             height: 36,
@@ -210,26 +175,9 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.blueGrey,
                       borderRadius: BorderRadius.circular(20),
                     ),
+                    // Signup Button, proceeds to navigate to a sign up a page
                     child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Thanks!'),
-                                content: Text(
-                                    'You typed "${nameController.text}", the password was  "${passwordController.text}" '),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            });
-                      },
+                      onPressed: () { },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueGrey),
                       child: const Text(
