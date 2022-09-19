@@ -30,7 +30,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v2
         with:
           channel: stable
-          version: 3.0.2
+          version: 2.17.6
 
       - name: Install dependencies
         working-directory: ./ndtelemedicine
