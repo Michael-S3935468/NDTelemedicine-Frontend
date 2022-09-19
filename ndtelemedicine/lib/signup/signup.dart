@@ -24,17 +24,19 @@ class _SignUpPage extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _passKey = GlobalKey<FormFieldState>();
 
+  // Variables used to store the inputs of the forms
   String _name = '';
   String _email = '';
   int _age = -1;
-  int _selectedSex = 0;
+  int _selectedSexIndex = 0;
+  String _selectedSex = '';
   String _password = '';
 
   bool _isPasswordVisible = true;
   bool _isConfirmPasswordVisible = true;
   bool _termsChecked = false;
-  bool vertical = false;
 
+  // List used to load the Sex List elements to a Toggle Button
   final List<bool> _initialSexList = <bool>[true, false, false];
   List<Widget> sexList = const <Widget>[
     Text('Male'),
@@ -48,6 +50,10 @@ class _SignUpPage extends State<SignUpPage> {
       return "Please enter an email address!";
     }
 
+    // Regex is used to match if an input meets the criteria
+    // - Alphanumeric and special symbols before the '@' prefix
+    // - Alphabetical characters + Numbers before the '.' symbol
+    // - Alphabetical characters after the '.' symbol
     Pattern pattern =
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
     RegExp regex = RegExp(pattern.toString());
@@ -58,9 +64,21 @@ class _SignUpPage extends State<SignUpPage> {
     }
   }
 
+  // Function after the Sign Up button has been pressed
+  // Checks to see if the forms are valid
+  // If the form is valid, the page will return to the login screen
   void onPressedSubmit() {
     if (_formKey.currentState!.validate() && _termsChecked) {
       _formKey.currentState?.save();
+
+      // Converts _selectedSexIndex to a string
+      if(_selectedSexIndex == 0){ // Index is Male
+        _selectedSex = "Male";
+      } else if (_selectedSexIndex == 1) { // Index is Female
+        _selectedSex = "Female";
+      } else { // Index is other
+        _selectedSex = "Other";
+      }
 
       // FOR TESTING - showing the inputs after the user has submitted
       showDialog(
@@ -69,28 +87,30 @@ class _SignUpPage extends State<SignUpPage> {
             return AlertDialog(
               title: const Text('Thanks!'),
               content: Text(
-                  'Name: $_name\nemail: $_email\nAge: $_age\nSex: $_selectedSex\nPassword:$_password\n '),
+                  'Name: $_name\nemail: $_email\nAge: $_age\nSex: $_selectedSex\nPassword: $_password\n '),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
+                    // Push to login screen after pressing 'OK'
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
                   },
                   child: const Text('OK'),
                 ),
               ],
             );
           });
+      // Displays a Snackbar (temporary banner) at the bottom of the screen to show form is submitted successfully
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Form Submitted")));
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // loadSexList();
     return Scaffold(
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
         backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
         title: SizedBox(
           height: 30,
@@ -115,6 +135,7 @@ class _SignUpPage extends State<SignUpPage> {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Name form field, requires an non empty input
                   child: TextFormField(
                     decoration: const InputDecoration(
                       labelText: "Name*",
@@ -139,6 +160,7 @@ class _SignUpPage extends State<SignUpPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Email form field, requires a valid email (refer to validateEmail function)
                   child: TextFormField(
                     decoration: const InputDecoration(
                       labelText: "Email*",
@@ -164,14 +186,15 @@ class _SignUpPage extends State<SignUpPage> {
                               color: Color.fromRGBO(112, 112, 112, 1),
                               fontSize: 18)),
                       const SizedBox(height: 5),
+                      // Sex ToggleButton, only one element can be selected, on default 'Male' is initial value)
                       ToggleButtons(
-                        direction: vertical ? Axis.vertical : Axis.horizontal,
+                        direction: Axis.horizontal,
                         onPressed: (int index) {
                           setState(() {
                             for (int i = 0; i < _initialSexList.length; i++) {
                               _initialSexList[i] = i == index;
                             }
-                            _selectedSex = int.parse(index.toString());
+                            _selectedSexIndex = int.parse(index.toString());
                           });
                         },
                         borderRadius: BorderRadius.circular(10.0),
@@ -190,6 +213,7 @@ class _SignUpPage extends State<SignUpPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Age form field, requires a valid age (Range between 1-119)
                   child: TextFormField(
                     decoration: const InputDecoration(
                       labelText: "Age*",
@@ -218,6 +242,7 @@ class _SignUpPage extends State<SignUpPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Password form field, requires non empty input and input length is larger or equal to 8
                   child: TextFormField(
                     key: _passKey,
                     obscureText: _isPasswordVisible,
@@ -249,6 +274,7 @@ class _SignUpPage extends State<SignUpPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Password Confirm form field, requires same input as Password form field
                   child: TextFormField(
                     obscureText: _isConfirmPasswordVisible,
                     decoration: InputDecoration(
@@ -287,6 +313,7 @@ class _SignUpPage extends State<SignUpPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Confirmation Checkbox, required to be ticked
                   child: CheckboxListTile(
                     value: _termsChecked,
                     onChanged: (value) {
@@ -312,9 +339,8 @@ class _SignUpPage extends State<SignUpPage> {
                     color: Colors.blueGrey,
                     borderRadius: BorderRadius.circular(20),
                   ),
+                  // Sign Up button, performs a form validation check before submitting, if form is valid, return to login page
                   child: ElevatedButton(
-                    // onPressed: () {
-                    // },
                     onPressed: onPressedSubmit,
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent),
