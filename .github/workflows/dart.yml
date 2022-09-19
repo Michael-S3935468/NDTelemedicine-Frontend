@@ -25,6 +25,8 @@ jobs:
         with:
           channel: stable
           version: 3.0.2
+          
+      - uses: dart-lang/setup-dart@v1.3
 
       - name: Install dependencies
         working-directory: ./ndtelemedicine
