@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ndtelemedicine/booking/booking_main.dart';
 
 void main() => runApp(const MyApp());
 
@@ -108,6 +109,18 @@ class MyHomePage extends StatelessWidget {
               leading: const Icon(Icons.account_circle),
               title: const Text('Profile'),
               onTap: () {},
+            ),
+            const Divider(
+              color: Colors.white,
+            ),
+            ListTile(
+              leading: const Icon(Icons.event),
+              title: const Text('Bookings'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => BookingPage())
+                );
+              },
             ),
             const Divider(
               color: Colors.white,
