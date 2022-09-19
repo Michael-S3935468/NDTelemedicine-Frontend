@@ -65,6 +65,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - images/Header-Base.png
+    - images/Login-Background.png
     - images/PFP.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

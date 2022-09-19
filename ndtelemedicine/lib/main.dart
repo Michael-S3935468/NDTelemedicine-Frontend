@@ -5,6 +5,11 @@ import 'package:ndtelemedicine/booking/booking_main.dart';
 
 import 'notifications/notification.dart';
 
+
+import 'login/login.dart';
+
+
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -226,7 +231,10 @@ class MyHomePage extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Sign Out'),
-                  onTap: () {},
+                  onTap: () {
+                    // Produces error if tapped
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                  },
                 ),
               ),
             ),
