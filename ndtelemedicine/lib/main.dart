@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'profile/profile.dart';
 import 'package:ndtelemedicine/booking/booking_main.dart';
 
+
+import 'notifications/notification.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -35,7 +38,14 @@ class MyHomePage extends StatelessWidget {
           ),
           centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          IconButton(onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => NotificationPage(),
+                ),
+              );
+            }, icon: const Icon(Icons.notifications)
+          ),
         ],
       ),
       body: Column(
