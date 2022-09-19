@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/main.dart';
-import 'package:ndtelemedicine/signup.dart';
+import '/signup/signup.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -58,8 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
                   child: const Text(
                     "Login",
                     style: TextStyle(
@@ -74,15 +74,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Email form, if form is null return an error
                   child: TextFormField(
                     controller: nameController,
                     decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        labelText: "example@domain.net"),
+                        labelText: "Enter Email here",
+                        hintText:  "example@domain.net"
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Enter Valid E-mail!";
+                        return "Please enter an email!";
                       }
                       return null;
                     },
@@ -94,6 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
+                  // Password form, if form is null return an error
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: _isObscure,
@@ -101,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true,
                       fillColor: Colors.white,
                       labelText: "Enter password here",
+                      hintText:  "Password",
                       suffixIcon: IconButton(
                         icon: Icon(_isObscure
                             ? Icons.visibility_off
@@ -114,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Enter valid password";
+                        return "Please enter a password!";
                       }
                       return null;
                     },
@@ -128,16 +133,17 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(20),
                     ),
+                    // Login Button, proceeds to navigate to home page if checks are valid
                     child: ElevatedButton(
-                      // Validation Check
+                      // Validation Check, checks if both email and password form are valid
                       onPressed: () {
-                        // if (_LoginKey.currentState!.validate()) {
-                        //   //If the form is valid, login is successful and proceed to home page
-                        //   Navigator.of(context).push(MaterialPageRoute(
-                        //       builder: (context) => const MyHomePage(
-                        //             title: "NDTelemedicine",
-                        //           )));
-                        // }
+                        if (_LoginKey.currentState!.validate()) {
+                          //If the form is valid, login is successful and proceed to home page
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const MyHomePage(
+                                title: "NDTelemedicine",
+                              )));
+                        }
                       },
                       child: const Text(
                         "Login",
