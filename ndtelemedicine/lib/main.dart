@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ndtelemedicine/notif.dart';
+import 'notifications/notification.dart';
 
 void main() => runApp(const MyApp());
 
