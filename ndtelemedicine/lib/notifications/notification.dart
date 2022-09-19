@@ -23,7 +23,9 @@ class _NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Create a list of items that would be used as an example for how removing notifications would work
     List<int> items = List<int>.generate(5, (int index) => index);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
@@ -42,6 +44,7 @@ class _NotificationPage extends StatelessWidget {
               },
               icon: const Icon(Icons.home)),
           actions: [
+            // Button that displays a hint (via a closeable banner) on how to close a notification
             IconButton(
                 onPressed: () =>
                     ScaffoldMessenger.of(context).showMaterialBanner(
@@ -84,6 +87,7 @@ class _NotificationPage extends StatelessWidget {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   var item = items[index];
+                  // Displays the list of items as removable list by swiping either left or right to remove the item
                   return Dismissible(
                     key: ValueKey(item),
                     background: Container(
@@ -108,14 +112,14 @@ class _NotificationPage extends StatelessWidget {
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 20),
                       title: Text("item $item"),
-                      subtitle: Text("description here"),
+                      subtitle: Text("item $item description here"),
                     ),
 
 
                     onDismissed: (direction) {
                       items.removeAt(index);
 
-                      // Show a snackbar of item that was deleted
+                      // Show a snackbar (temporary banner) at the bottom of the screen to show that the item was deleted
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Item $item dismissed")));
                     },
