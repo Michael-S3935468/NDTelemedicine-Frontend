@@ -154,8 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                   Row(children: <Widget>[
                     Expanded(
                       child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 10.0, right: 20.0),
+                          margin: const EdgeInsets.only(left: 10.0, right: 20.0),
                           child: const Divider(
                             color: Colors.black,
                             height: 36,
@@ -163,9 +162,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const Text("OR"),
                     Expanded(
-                      child: Container(
-                          margin:
-                              const EdgeInsets.only(left: 20.0, right: 10.0),
+                      child: Container(    
+                          margin: const EdgeInsets.only(left: 20.0, right: 10.0),
                           child: const Divider(
                             color: Colors.black,
                             height: 36,
