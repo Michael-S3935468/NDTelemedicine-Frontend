@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/main.dart';
+import '/signup/signup.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -139,8 +141,8 @@ class _LoginPageState extends State<LoginPage> {
                           //If the form is valid, login is successful and proceed to home page
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const MyHomePage(
-                                    title: "NDTelemedicine",
-                                  )));
+                                title: "NDTelemedicine",
+                              )));
                         }
                       },
                       child: const Text(
@@ -160,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const Text("OR"),
                     Expanded(
-                      child: Container(
+                      child: Container(    
                           margin: const EdgeInsets.only(left: 20.0, right: 10.0),
                           child: const Divider(
                             color: Colors.black,
@@ -175,9 +177,11 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.blueGrey,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    // Signup Button, proceeds to navigate to a sign up a page
                     child: ElevatedButton(
-                      onPressed: () { },
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SignUpPage()));
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueGrey),
                       child: const Text(
