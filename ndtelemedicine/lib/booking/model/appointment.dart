@@ -1,69 +1,22 @@
 import 'dart:convert';
 
 List appointList = [
-  {
-    "date" : "15 September 2022",
-    "time" : "9:00am - 9:15am",
-    "booked" : "available"
-  },
-  {
-    "date" : "15 September 2022",
-    "time" : "9:15am - 9:30am",
-    "booked" : "available"
-  },
-  {
-    "date" : "22 September 2022",
-    "time" : "9:30am - 9:45am",
-    "booked" : "user"
-  },
-  {
-    "date" : "22 September 2022",
-    "time" : "9:45am - 10:00am",
-    "booked" : "available"
-  },
-  {
-    "date" : "23 September 2022",
-    "time" : "10:00am - 10:15am",
-    "booked" : "booked"
-  },
-  {
-    "date" : "23 September 2022",
-    "time" : "10:15am - 10:30am",
-    "booked" : "available"
-  },
-  {
-    "date" : "26 September 2022",
-    "time" : "10:30am - 10:45am",
-    "booked" : "available"
-  },
-  {
-    "date" : "26 September 2022",
-    "time" : "10:45am - 11:00am",
-    "booked" : "available"
-  },
+  [
+    "12:00:00",
+    "15:00:00"
+  ],
+  [
+    "16:30:00",
+    "18:00:00"
+  ]
 ];
 
-AvailableTimes availableTimesFromJson(String str) => AvailableTimes.fromJson(json.decode(str));
-//
-// String availableTimesToJson(AvailableTimes data) => json.encode(data.toJson());
+// Convert JSON to List of List of Strings for available timeslots for a doctor
+List<List<String>> availableTimesFromJson(String str) => List<List<String>>.from(json.decode(str).map((x) => List<String>.from(x.map((x) => x))));
 
-class AvailableTimes {
-  AvailableTimes({
-    required this.times,
-  });
+// String availableTimesToJson(List<List<String>> data) => json.encode(List<dynamic>.from(data.map((x) => List<dynamic>.from(x.map((x) => x)))));
 
-  List<List<String>> times;
-
-  factory AvailableTimes.fromJson(Map<String, dynamic> json) => AvailableTimes(
-    times: List<List<String>>.from(json["times"].map((x) => List<String>.from(x.map((x) => x)))),
-  );
-
-  // Map<String, dynamic> toJson() => {
-  //   "times": List<dynamic>.from(times.map((x) => List<dynamic>.from(x.map((x) => x)))),
-  // };
-}
-
-
+// Model class for Appointments
 class Appointment {
 
   late DateTime start;
@@ -72,34 +25,30 @@ class Appointment {
 
   Appointment({required this.start, required this.end, required this.label});
 
-  // REMOVE
-  late final String time;
-  late final String date;
-  late final String booked;
-
-  // Appointment({required this.date, required this.time, required this.booked});
-
-  Appointment.fromJson(Map<String, dynamic> json) {
-    date =json['date'];
-    time = json['time'];
-    booked = json['booked'];
-  }
-  // REMOVE
-
 }
 
+// Function that creates booking slots of 15 minute intervals given a time range
 List<Appointment> fromTime(String s, String e, DateTime date) {
 
+  // Get hour and minute for time range
   List<String> periodStart = s.split(":");
   List<String> periodEnd = e.split(":");
 
   List<Appointment> appointments = [];
 
+  // Construct a new date from time provided
   DateTime startTime = DateTime(date.year, date.month, date.day, int.parse(periodStart[0]), int.parse(periodStart[1]));
   DateTime endTime = DateTime(date.year, date.month, date.day, int.parse(periodEnd[0]), int.parse(periodEnd[1]));
 
+  // Create Appointments
   while (startTime != endTime) {
-    appointments.add(Appointment(start: startTime, end: startTime.add(const Duration(minutes: 15)), label: "${startTime.hour}:${startTime.minute} - ${startTime.add(const Duration(minutes: 15)).hour}:${startTime.add(const Duration(minutes: 15)).minute}"));
+    appointments.add(
+        Appointment(
+            start: startTime,
+            end: startTime.add(const Duration(minutes: 15)),
+            label: "${startTime.hour}:${startTime.minute}${startTime.minute == 0 ? 0 : ""} - ${startTime.add(const Duration(minutes: 15)).hour}:${startTime.add(const Duration(minutes: 15)).minute}${startTime.minute == 45 ? 0 : ""}"
+        )
+    );
     startTime = startTime.add(const Duration(minutes: 15));
   }
 
