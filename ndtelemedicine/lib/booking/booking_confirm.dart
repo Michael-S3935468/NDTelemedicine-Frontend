@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ndtelemedicine/main.dart';
 
+import 'model/appointment.dart';
 import 'model/doctor.dart';
 
 class BookingAppointmentConfirmationPage extends StatefulWidget {
-  final DateTime bookingDate;
+  final Appointment appointment;
   final Doctor doctor;
-  final String bookingTime;
 
   const BookingAppointmentConfirmationPage({
     Key? key,
-    required this.bookingDate,
+    required this.appointment,
     required this.doctor,
-    required this.bookingTime
   }) : super(key: key);
 
   @override
@@ -85,7 +84,7 @@ class _BookingAppointmentConfirmationPage extends State<BookingAppointmentConfir
                     fontSize: 20,
                   ),
                 ),
-                Text(DateFormat('d MMMM y').format(widget.bookingDate),
+                Text(DateFormat('d MMMM y').format(widget.appointment.start),
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -96,7 +95,7 @@ class _BookingAppointmentConfirmationPage extends State<BookingAppointmentConfir
                     fontSize: 20,
                   ),
                 ),
-                Text(widget.bookingTime,
+                Text(widget.appointment.label,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
