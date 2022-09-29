@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ndtelemedicine/login/login.dart';
 
 class MyApp extends StatelessWidget {
@@ -220,7 +221,9 @@ class _SignUpPage extends State<SignUpPage> {
                       hintText: "How old are you?",
                       filled: true,
                       fillColor: Colors.white,
+                      icon: Icon(Icons.date_range),
                     ),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Formats input to only allow digits [0-9]
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       var numVal = int.tryParse(value.toString());
@@ -250,6 +253,7 @@ class _SignUpPage extends State<SignUpPage> {
                       labelText: "Password*",
                       filled: true,
                       fillColor: Colors.white,
+                      icon: Icon(Icons.lock),
                       suffixIcon: IconButton(
                         icon: Icon(_isPasswordVisible
                             ? Icons.visibility_off
@@ -281,6 +285,7 @@ class _SignUpPage extends State<SignUpPage> {
                       labelText: "Re-type password*",
                       filled: true,
                       fillColor: Colors.white,
+                      icon: Icon(Icons.lock),
                       suffixIcon: IconButton(
                         icon: Icon(_isConfirmPasswordVisible
                             ? Icons.visibility_off
