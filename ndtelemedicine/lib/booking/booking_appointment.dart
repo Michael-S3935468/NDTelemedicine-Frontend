@@ -22,6 +22,7 @@ class BookingAppointmentPage extends StatefulWidget {
 
 class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
   late List<Appointment>? _appointments = [];
+  bool _loading = true;
 
   // Get appointments
   @override
@@ -33,6 +34,7 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
   void _getAppointments() async {
     _appointments = (await BookingAPI().getAppointments(widget.bookingDate))!;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    _loading = false;
   }
 
   @override
@@ -90,7 +92,7 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
                 child: ListView(
                   children: [
                     // Display list of appointments if any
-                    (_appointments == null || _appointments!.isEmpty)
+                    (_loading)
                         ?
                     const Center(
                       child: CircularProgressIndicator(),
