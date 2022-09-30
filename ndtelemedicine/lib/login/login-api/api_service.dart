@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import '../model/LoginResponse.dart';
 import '../model/login.dart';
 
 class LoginAPI{
-  Future<LoginRequest> sendLogin(LoginRequest request) async {
+  Future<LoginResponse> sendLogin(LoginRequest request) async {
     var url = Uri.parse('http://localhost:8080/item/time');
     final http.Response response = await http.post(
         url,
@@ -16,7 +17,7 @@ class LoginAPI{
     );
 
     if (response.statusCode == 201) {
-      return LoginRequest.fromJson(json.decode(response.body));
+      return loginResponseFromJson(response.body);
     } else {
       throw Exception("Failed to login");
     }
