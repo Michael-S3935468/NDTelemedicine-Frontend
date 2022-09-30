@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/login/login-api/api_service.dart';
 import 'package:ndtelemedicine/main.dart';
 import '/signup/signup.dart';
-import 'model/login_page.dart';
+import 'model/login.dart';
 
 
 void main() => runApp(const MyApp());

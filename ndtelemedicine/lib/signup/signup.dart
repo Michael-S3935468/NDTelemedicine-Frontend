@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ndtelemedicine/login/login.dart';
+import 'package:ndtelemedicine/login/login_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
