@@ -1,6 +1,9 @@
 import 'package:http/http.dart' as http;
 import '../model/appointment.dart';
 
+const int START = 0;
+const int END = 1;
+
 class BookingAPI {
   Future<List<Appointment>?> getAppointments(DateTime date) async {
     try {
@@ -9,19 +12,17 @@ class BookingAPI {
       var url = Uri.parse('http://localhost:8080/item/time');
       // var url = Uri.parse("PUT API ENDPOINT HERE" "/$date");
       var response = await http.get(url, headers: {
-        "Access-Control_Allow_Origin": "*"
+        "Access-Control-Allow-Origin": "*"
       });
 
       // If response returned, make the appointment list
       if (response.statusCode == 200) {
-
-        // Temporary solution with fixed time slots, used for testing functionality, currently working as intended
         List<List<String>> availableTimes =  availableTimesFromJson(response.body);
         List<Appointment> appointments = [];
 
         // Convert the available time slots into booking appointments
-        for (var t in availableTimes) {
-          List<Appointment> temp = fromTime(t[0], t[1], date);
+        for (var timeSlot in availableTimes) {
+          List<Appointment> temp = fromTime(timeSlot[START], timeSlot[END], date);
           appointments += temp;
         }
 
