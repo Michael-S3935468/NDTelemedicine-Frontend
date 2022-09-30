@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ndtelemedicine/login/login-api/api_service.dart';
 import 'package:ndtelemedicine/main.dart';
 import '/signup/signup.dart';
+import 'model/login_page.dart';
 
 
 void main() => runApp(const MyApp());
@@ -143,6 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                               builder: (context) => const MyHomePage(
                                 title: "NDTelemedicine",
                               )));
+                          LoginRequest(email: nameController.text, password: passwordController.text);
+                        //  Call API
+
                         }
                       },
                       child: const Text(
