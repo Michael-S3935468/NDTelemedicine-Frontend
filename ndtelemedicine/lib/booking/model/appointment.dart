@@ -42,13 +42,13 @@ List<Appointment> fromTime(String s, String e, DateTime date) {
 
   // Create Appointments
   while (startTime != endTime) {
-    appointments.add(
-        Appointment(
-            start: startTime,
-            end: startTime.add(const Duration(minutes: 15)),
-            label: "${startTime.hour}:${startTime.minute}${startTime.minute == 0 ? 0 : ""} - ${startTime.add(const Duration(minutes: 15)).hour}:${startTime.add(const Duration(minutes: 15)).minute}${startTime.minute == 45 ? 0 : ""}"
-        )
-    );
+    if (startTime.isAfter(DateTime.now())) {
+      appointments.add(Appointment(
+          start: startTime,
+          end: startTime.add(const Duration(minutes: 15)),
+          label:
+              "${startTime.hour}:${startTime.minute}${startTime.minute == 0 ? 0 : ""} - ${startTime.add(const Duration(minutes: 15)).hour}:${startTime.add(const Duration(minutes: 15)).minute}${startTime.minute == 45 ? 0 : ""}"));
+    }
     startTime = startTime.add(const Duration(minutes: 15));
   }
 
