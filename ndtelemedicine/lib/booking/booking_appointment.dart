@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'booking-api/api_service.dart';
 import 'booking_confirm.dart';
 import 'model/appointment.dart';
 import 'model/doctor.dart';
@@ -20,15 +21,20 @@ class BookingAppointmentPage extends StatefulWidget {
 }
 
 class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
-  List<Appointment> appointments = [];
+  late List<Appointment>? _appointments = [];
+  bool _loading = true;
 
   // Get appointments
   @override
   void initState() {
-    for (var element in appointList) {
-      appointments.add(Appointment.fromJson(element));
-    }
     super.initState();
+    _getAppointments();
+  }
+
+  void _getAppointments() async {
+    _appointments = (await BookingAPI().getAppointments(widget.bookingDate))!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    _loading = false;
   }
 
   @override
@@ -86,19 +92,24 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
                 child: ListView(
                   children: [
                     // Display list of appointments if any
-                    (appointments.isNotEmpty)
+                    (_loading)
                         ?
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                        :
+                    (_appointments!.isNotEmpty)
+                    ?
                     ListView.builder(
                       shrinkWrap: true,
-                      itemCount: appointments.length,
+                      itemCount: _appointments?.length,
                       itemBuilder: (BuildContext context, int index) =>
-                          _buildList(appointments[index]),
+                          _buildList(_appointments![index]),
                     )
                         :
                     const Center(
                       child: Text("There are no appointments available on this day"),
-                    ),
-
+                    )
                   ],
                 )
             )
@@ -109,7 +120,7 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
 
   // Widget that displays available appointments
   Widget _buildList(Appointment list) {
-    if (list.booked == "available" && list.date == DateFormat('d MMMM y').format(widget.bookingDate)) {
+
       return Builder(builder: (context) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -122,7 +133,7 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
             title: Column(
               children: [
                 Center(
-                  child: Text(list.time),
+                  child: Text(list.label),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15),
@@ -131,9 +142,8 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
                       Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => BookingAppointmentConfirmationPage(
-                                  bookingDate: widget.bookingDate,
+                                  appointment: list,
                                   doctor: widget.doctor,
-                                  bookingTime: list.time
                               )
                           )
                       );
@@ -151,7 +161,5 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
           ),
         );
       });
-    }
-    return const SizedBox();
   }
 }
