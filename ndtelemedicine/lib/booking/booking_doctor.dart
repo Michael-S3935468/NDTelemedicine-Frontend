@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/booking/booking_calendar.dart';
+import 'package:provider/provider.dart';
 
+import '../state_models/Booking.dart';
 import 'model/doctor.dart';
 
 class BookingDoctorPage extends StatefulWidget {
@@ -29,7 +31,7 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
         backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
         title: SizedBox(
           height: 30,
-          child:  Image.asset('images/Header-Base.png'),
+          child: Image.asset('images/Header-Base.png'),
         ),
         centerTitle: true,
         actions: [
@@ -38,7 +40,6 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
       ),
       body: Column(
         children: [
-
           // Header
           Container(
             alignment: Alignment.topLeft,
@@ -59,17 +60,16 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
 
           // Display list of Doctors
           Expanded(
-            child: ListView(
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: doctors.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      _buildList(doctors[index]),
-                ),
-              ],
-            )
-          )
+              child: ListView(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: doctors.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    _buildList(doctors[index]),
+              ),
+            ],
+          ))
         ],
       ),
     );
@@ -77,7 +77,7 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
 
   // Widget that displays Doctors
   Widget _buildList(Doctor doctor) {
-    return Builder(builder: (context) {
+    return Consumer<Booking>(builder: (context, booking, child) {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
         padding: const EdgeInsets.all(5),
@@ -91,9 +91,10 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
           subtitle: Text("${doctor.specialist}\n${doctor.gender}"),
           trailing: TextButton(
             onPressed: () {
+              booking.setDoctor(doctor);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => BookingCalendarPage(doctor: doctor),
+                  builder: (context) => BookingCalendarPage(),
                 ),
               );
             },

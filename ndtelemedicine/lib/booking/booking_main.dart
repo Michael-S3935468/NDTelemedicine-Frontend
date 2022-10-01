@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'booking_manage.dart';
 import 'booking_doctor.dart';
 
-class BookingPage extends StatefulWidget {
+class BookingPage extends StatelessWidget {
   const BookingPage({Key? key}) : super(key: key);
 
-  @override
-  State<BookingPage> createState() => _BookingPage();
-}
-
-class _BookingPage extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
