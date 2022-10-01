@@ -139,10 +139,11 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         if (_LoginKey.currentState!.validate()) {
                           //If the form is valid, login is successful and proceed to home page
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const MyHomePage(
-                                title: "NDTelemedicine",
-                              )));
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const MyHomePage()
+                            )
+                          );
                         }
                       },
                       child: const Text(
@@ -183,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                             builder: (context) => const SignUpPage()));
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueGrey),
+                          primary: Colors.blueGrey),
                       child: const Text(
                         "Sign Up",
                         style: TextStyle(color: Colors.white, fontSize: 25),
