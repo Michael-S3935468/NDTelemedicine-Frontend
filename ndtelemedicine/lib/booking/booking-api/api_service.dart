@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import '../model/appointment.dart';
+import '../../state_models/Appointment.dart';
 
 const int START = 0;
 const int END = 1;

@@ -1,21 +1,5 @@
 import 'dart:convert';
 
-List appointList = [
-  [
-    "12:00:00",
-    "15:00:00"
-  ],
-  [
-    "16:30:00",
-    "18:00:00"
-  ]
-];
-
-// Convert JSON to List of List of Strings for available timeslots for a doctor
-List<List<String>> availableTimesFromJson(String str) => List<List<String>>.from(json.decode(str).map((x) => List<String>.from(x.map((x) => x))));
-
-// String availableTimesToJson(List<List<String>> data) => json.encode(List<dynamic>.from(data.map((x) => List<dynamic>.from(x.map((x) => x)))));
-
 // Model class for Appointments
 class Appointment {
 
@@ -26,6 +10,9 @@ class Appointment {
   Appointment({required this.start, required this.end, required this.label});
 
 }
+
+// Convert JSON to List of List of Strings for available timeslots for a doctor
+List<List<String>> availableTimesFromJson(String str) => List<List<String>>.from(json.decode(str).map((x) => List<String>.from(x.map((x) => x))));
 
 // Function that creates booking slots of 15 minute intervals given a time range
 List<Appointment> fromTime(String s, String e, DateTime date) {
