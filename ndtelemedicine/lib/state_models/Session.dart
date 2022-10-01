@@ -4,8 +4,8 @@ import './Patient.dart';
 
 class Session extends ChangeNotifier {
 
-  late final Patient _patient;
-  late final String _jwt;
+  late final Patient? _patient;
+  late final String? _jwt;
 
   void setPatient(Patient patient) {
     _patient = patient;
@@ -13,5 +13,10 @@ class Session extends ChangeNotifier {
 
   void setJWT(String jwt) {
     _jwt = jwt;
+  }
+
+  void closeSession() {
+    _patient = null;
+    _jwt = null;
   }
 }
