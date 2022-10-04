@@ -1,31 +1,41 @@
-import './Sex.dart';
 
 class User {
 
-  User(
-    this.firstName,
-    this.lastName,
-    this.age,
-    this.sex,
-    this.email,
-    this.password,
-    this.id
+  User({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.age,
+    required this.sex,
+    required this.email,
+    required this.password,
+  });
+
+  int id;
+  String firstName;
+  String lastName;
+  int age;
+  String sex;
+  String email;
+  String password;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json["id"],
+    firstName: json["firstName"],
+    lastName: json["lastName"],
+    age: json["age"],
+    sex: json["sex"],
+    email: json["email"],
+    password: json["password"],
   );
 
-  User.min(
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.id
-  );
-
-  int? id;
-  String? firstName;
-  String? lastName;
-  int? age;
-  Sex? sex;
-  String? email;
-  String? password;
-
-
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "firstName": firstName,
+    "lastName": lastName,
+    "age": age,
+    "sex": sex,
+    "email": email,
+    "password": password,
+  };
 }
