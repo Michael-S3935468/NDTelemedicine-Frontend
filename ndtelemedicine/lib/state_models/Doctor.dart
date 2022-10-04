@@ -4,8 +4,8 @@ import './Patient.dart';
 
 class Doctor extends User {
 
-  Doctor(String firstName, String lastName, String email, int id)
-      : super.min(firstName, lastName, email ,id);
+  Doctor(User user)
+      : super(id: user.id, firstName: user.firstName, lastName: user.lastName, age: user.age, sex: user.sex, email: user.email, password: user.password);
 
   final List<Patient> patients = [];
 

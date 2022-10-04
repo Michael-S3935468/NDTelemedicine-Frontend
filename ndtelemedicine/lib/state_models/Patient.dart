@@ -4,9 +4,8 @@ import './Symptom.dart';
 
 class Patient extends User {
 
-  Patient(String firstName, String lastName, String email, int id)
-      : super.min(firstName, lastName, email ,id);
-
+  Patient(User user)
+    : super(id: user.id, firstName: user.firstName, lastName: user.lastName, age: user.age, sex: user.sex, email: user.email, password: user.password);
 
   final List<Symptom> symptoms = [];
   String medicalConditions = "";
