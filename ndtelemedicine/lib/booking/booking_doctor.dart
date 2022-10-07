@@ -91,6 +91,7 @@ class _BookingDoctorPage extends State<BookingDoctorPage> {
           subtitle: Text("${doctor.specialist}\n${doctor.gender}"),
           trailing: TextButton(
             onPressed: () {
+              booking.endSession();
               booking.setDoctor(doctor);
               Navigator.of(context).push(
                 MaterialPageRoute(

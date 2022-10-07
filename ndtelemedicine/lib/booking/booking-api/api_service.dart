@@ -33,4 +33,19 @@ class BookingAPI {
     }
     return null;
   }
+
+  Future<List<Appointment>?> getBooked() async {
+    // Temp solution
+    List<Appointment> temp = [];
+
+    temp.add(Appointment(start: DateTime(2022, 1, 1, 15, 15), end: DateTime(2022, 1, 1, 15, 30), label: "test"));
+    temp.add(Appointment(start: DateTime(2022, 1, 1, 15, 30), end: DateTime(2022, 1, 1, 15, 45), label: "test1"));
+
+    return temp;
+  }
+
+  Future<bool> unBookAppointment(Appointment? appointment) async {
+
+    return true;
+  }
 }

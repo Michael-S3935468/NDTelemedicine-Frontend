@@ -1,11 +1,16 @@
 import 'dart:convert';
 
+import '../booking/model/doctor.dart';
+import 'Patient.dart';
+
 // Model class for Appointments
 class Appointment {
 
   late DateTime start;
   late DateTime end;
   late String label;
+  late Doctor doctor;
+  late Patient patient;
 
   Appointment({required this.start, required this.end, required this.label});
 

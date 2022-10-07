@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ndtelemedicine/booking/booking-api/api_service.dart';
 import 'package:ndtelemedicine/main.dart';
 import 'package:provider/provider.dart';
 
+import '../state_models/Appointment.dart';
 import '../state_models/Booking.dart';
 
 class BookingAppointmentConfirmationPage extends StatelessWidget {
   const BookingAppointmentConfirmationPage({
     Key? key,
   }) : super(key: key);
+
+  void _unBookAppointment(Appointment? appointment) async {
+    await BookingAPI().unBookAppointment(appointment);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +116,7 @@ class BookingAppointmentConfirmationPage extends StatelessWidget {
                 children: <Widget>[
                   TextButton(
                     onPressed: () {
+                      _unBookAppointment(booking.removing);
                       booking.endSession();
                       Navigator.of(context).push(
                         MaterialPageRoute(
