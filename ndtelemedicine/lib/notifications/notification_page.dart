@@ -6,12 +6,9 @@ import 'model/notification_list.dart';
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
 
-  static const appTitle = 'NDTelemedicine';
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: appTitle,
       home: _NotificationPage(),
       debugShowCheckedModeBanner: false,
     );
@@ -25,8 +22,6 @@ class _NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Create a list of items that would be used as an example for how removing notifications would work
-    // List<int> items = List<int>.generate(5, (int index) => index);
     final List<Notif> notifs = Notif.getNotif();
 
     return Scaffold(
@@ -89,7 +84,6 @@ class _NotificationPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: notifs.length,
                 itemBuilder: (context, index) {
-                  // var item = items[index];
                   // Displays the list of items as removable list by swiping either left or right to remove the item
                   return Dismissible(
                     key: UniqueKey(),
@@ -111,12 +105,6 @@ class _NotificationPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    // child: ListTile(
-                    //   contentPadding:
-                    //       const EdgeInsets.symmetric(horizontal: 20),
-                    //   title: Text("item $item"),
-                    //   subtitle: Text("item $item description here"),
-                    // ),
                     child: NotifItem(notifs: notifs[index]),
 
                     onDismissed: (direction) {
