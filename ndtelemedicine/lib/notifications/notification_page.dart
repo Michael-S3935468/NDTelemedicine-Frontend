@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/main.dart';
+import 'model/notification_item.dart';
+import 'model/notification_list.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -24,7 +26,8 @@ class _NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Create a list of items that would be used as an example for how removing notifications would work
-    List<int> items = List<int>.generate(5, (int index) => index);
+    // List<int> items = List<int>.generate(5, (int index) => index);
+    final List<Notif> notifs = Notif.getNotif();
 
     return Scaffold(
         appBar: AppBar(
@@ -84,12 +87,12 @@ class _NotificationPage extends StatelessWidget {
             Expanded(
               //
               child: ListView.builder(
-                itemCount: items.length,
+                itemCount: notifs.length,
                 itemBuilder: (context, index) {
-                  var item = items[index];
+                  // var item = items[index];
                   // Displays the list of items as removable list by swiping either left or right to remove the item
                   return Dismissible(
-                    key: ValueKey(item),
+                    key: UniqueKey(),
                     background: Container(
                       color: Colors.red,
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -108,20 +111,20 @@ class _NotificationPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    child: ListTile(
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 20),
-                      title: Text("item $item"),
-                      subtitle: Text("item $item description here"),
-                    ),
-
+                    // child: ListTile(
+                    //   contentPadding:
+                    //       const EdgeInsets.symmetric(horizontal: 20),
+                    //   title: Text("item $item"),
+                    //   subtitle: Text("item $item description here"),
+                    // ),
+                    child: NotifItem(notifs: notifs[index]),
 
                     onDismissed: (direction) {
-                      items.removeAt(index);
+                      notifs.removeAt(index);
 
                       // Show a snackbar (temporary banner) at the bottom of the screen to show that the item was deleted
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Item $item dismissed")));
+                          const SnackBar(content: Text("Notification dismissed")));
                     },
                   );
                 },

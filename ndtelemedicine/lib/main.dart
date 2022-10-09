@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'profile/profile.dart';
 import 'package:ndtelemedicine/booking/booking_main.dart';
 
-import 'notifications/notification.dart';
+import 'notifications/notification_page.dart';
 import 'login/login.dart';
 
 void main() => runApp(const MyApp());
