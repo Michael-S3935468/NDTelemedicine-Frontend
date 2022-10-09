@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ndtelemedicine/signup/signup-api/api_service.dart';
 import 'package:ndtelemedicine/login/login.dart';
+import 'model/signup.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -82,14 +84,15 @@ class _SignUpPage extends State<SignUpPage> {
         _selectedSex = "Other";
       }
 
-      // FOR TESTING - showing the inputs after the user has submitted
+      // CALL API
+      SignupRequest(firstName: _firstName, lastName: _lastName, email: _email, id: -1, age: _age, sex: _selectedSex, password: _password);
+
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text('Thanks!'),
-              content: Text(
-                  'First name: $_firstName\nLast name: $_lastName\n $_email\nAge: $_age\nSex: $_selectedSex\nPassword: $_password\n '),
+              content: const Text("Press OK to return to the login page"),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
