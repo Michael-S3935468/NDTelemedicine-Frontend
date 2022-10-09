@@ -26,7 +26,8 @@ class _SignUpPage extends State<SignUpPage> {
   final _passKey = GlobalKey<FormFieldState>();
 
   // Variables used to store the inputs of the forms
-  String _name = '';
+  String _firstName = '';
+  String _lastName = '';
   String _email = '';
   int _age = -1;
   int _selectedSexIndex = 0;
@@ -88,7 +89,7 @@ class _SignUpPage extends State<SignUpPage> {
             return AlertDialog(
               title: const Text('Thanks!'),
               content: Text(
-                  'Name: $_name\nemail: $_email\nAge: $_age\nSex: $_selectedSex\nPassword: $_password\n '),
+                  'First name: $_firstName\nLast name: $_lastName\n $_email\nAge: $_age\nSex: $_selectedSex\nPassword: $_password\n '),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
@@ -139,12 +140,13 @@ class _SignUpPage extends State<SignUpPage> {
                   // Name form field, requires an non empty input
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: "Name*",
-                      hintText: "FirstName LastName",
+                      labelText: "First Name*",
+                      // hintText: "FirstName",
                       filled: true,
                       fillColor: Colors.white,
                       icon: Icon(Icons.person),
                     ),
+                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))],
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Please enter a name!";
@@ -154,7 +156,33 @@ class _SignUpPage extends State<SignUpPage> {
                     },
                     onSaved: (value) {
                       setState(() {
-                        _name = value.toString();
+                        _firstName = value.toString();
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  // Name form field, requires an non empty input
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Last Name*",
+                      // hintText: "LastName",
+                      filled: true,
+                      fillColor: Colors.white,
+                      icon: Icon(Icons.person),
+                    ),
+                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))],
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter a name!";
+                      } else {
+                        return null;
+                      }
+                    },
+                    onSaved: (value) {
+                      setState(() {
+                        _lastName = value.toString();
                       });
                     },
                   ),

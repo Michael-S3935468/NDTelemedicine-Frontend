@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/main.dart';
-import '/signup/signup.dart';
+import '/signup/signup_page.dart';
 
 
 void main() => runApp(const MyApp());
