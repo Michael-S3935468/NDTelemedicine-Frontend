@@ -38,7 +38,7 @@ class _ProfilePage extends State<ProfilePage> {
             Container(
               alignment: Alignment.bottomLeft,
               margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
-              child: Text('${session.patient.firstName} ${session.patient.lastName}',
+              child: Text('${session.patient?.firstName} ${session.patient?.lastName}',
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 32,
@@ -90,7 +90,7 @@ class _ProfilePage extends State<ProfilePage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Text(
-                              "Sex: ${session.patient.sex}",
+                              "Sex: ${session.patient?.sex}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Inter',
@@ -100,7 +100,7 @@ class _ProfilePage extends State<ProfilePage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Text(
-                              "Age: ${session.patient.age}, years old",
+                              "Age: ${session.patient?.age}, years old",
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Inter',
@@ -131,22 +131,22 @@ class _ProfilePage extends State<ProfilePage> {
                 child: ListView(
                   children: [
                     // display list if any recent symptoms
-                    (session.patient.appointments.isNotEmpty)
+                    (session.patient!.appointments.isNotEmpty)
                         ? ListView.builder(
                       shrinkWrap: true,
                       itemCount:
-                      (session.patient.appointments.length > appointmentsPagination)
+                      (session.patient!.appointments.length > appointmentsPagination)
                           ? appointmentsPagination
-                          : session.patient.appointments.length,
+                          : session.patient!.appointments.length,
                       itemBuilder: (BuildContext context, int index) =>
-                          _buildListAppointments(session.patient.appointments[index]),
+                          _buildListAppointments(session.patient!.appointments[index]),
                     )
                         : const Center(
                             child: Text("You don't have any upcoming appointments"),
                     ),
 
                     // if there are more elements to display
-                    (session.patient.appointments.length > appointmentsPagination)
+                    (session.patient!.appointments.length > appointmentsPagination)
                         ? ListTile(
                       title: TextButton(
                         onPressed: () => {
@@ -180,21 +180,21 @@ class _ProfilePage extends State<ProfilePage> {
                   padding: const EdgeInsets.only(bottom: 25),
                   children: [
                     // display list if any recent symptoms
-                    (session.patient.symptoms.isNotEmpty)
+                    (session.patient!.symptoms.isNotEmpty)
                         ? ListView.builder(
                       shrinkWrap: true,
-                      itemCount: (session.patient.symptoms.length > symptomsPagination)
+                      itemCount: (session.patient!.symptoms.length > symptomsPagination)
                           ? symptomsPagination
-                          : session.patient.symptoms.length,
+                          : session.patient!.symptoms.length,
                       itemBuilder: (BuildContext context, int index) =>
-                          _buildListSymptoms(session.patient.symptoms[index]),
+                          _buildListSymptoms(session.patient!.symptoms[index]),
                     )
                         : const Center(
                       child: Text("You haven't report any symptoms recently"),
                     ),
 
                     // if there are more elements to display
-                    (session.patient.symptoms.length > symptomsPagination)
+                    (session.patient!.symptoms.length > symptomsPagination)
                         ? ListTile(
                       title: TextButton(
                         onPressed: () => {

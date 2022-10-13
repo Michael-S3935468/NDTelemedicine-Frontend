@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:ndtelemedicine/booking/model/doctor.dart';
+import 'package:ndtelemedicine/state_models/Doctor.dart';
 import 'package:ndtelemedicine/state_models/Appointment.dart';
 
 class Booking extends ChangeNotifier {
