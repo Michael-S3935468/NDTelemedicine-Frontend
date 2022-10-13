@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:ndtelemedicine/state_models/User.dart';
 import './Patient.dart';
 
 class Session extends ChangeNotifier {
 
-  late final Patient? _patient;
-  late final String? _jwt;
+  late Patient? _patient;
+
+  late String? _jwt;
 
   void setPatient(Patient patient) {
     _patient = patient;
@@ -15,8 +17,13 @@ class Session extends ChangeNotifier {
     _jwt = jwt;
   }
 
+  Patient? get patient => _patient;
+
+  String? get jwt => _jwt;
+
   void closeSession() {
     _patient = null;
     _jwt = null;
   }
+
 }
