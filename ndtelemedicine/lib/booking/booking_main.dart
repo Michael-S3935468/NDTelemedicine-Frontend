@@ -79,7 +79,7 @@ class BookingPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => BookingManagePage(id: session.patient.id, jwt: session.jwt),
+                            builder: (context) => BookingManagePage(id: session.patient?.id, jwt: session.jwt),
                           ),
                         );
                       },
