@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:ndtelemedicine/state_models/Booking.dart';
+import 'package:ndtelemedicine/state_models/Session.dart';
+import 'package:provider/provider.dart';
 import 'profile/profile.dart';
 import 'package:ndtelemedicine/booking/booking_main.dart';
 
 import 'notifications/notification.dart';
 import 'login/login_page.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Session()),
+        ChangeNotifierProvider(create: (context) => Booking())
+      ],
+      child: const MyApp(),
+    )
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -16,16 +29,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: appTitle,
-      home: MyHomePage(title: appTitle),
+      home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

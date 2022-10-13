@@ -37,7 +37,7 @@ dependencies:
   flutter_date_pickers: ^0.4.0
   intl: ^0.17.0
   http: ^0.13.5
-
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

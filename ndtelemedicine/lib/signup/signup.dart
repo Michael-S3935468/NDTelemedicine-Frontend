@@ -348,7 +348,7 @@ class _SignUpPage extends State<SignUpPage> {
                   child: ElevatedButton(
                     onPressed: onPressedSubmit,
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent),
+                        primary: Colors.blueAccent),
                     child: const Text(
                       "Sign Up",
                       style: TextStyle(color: Colors.white, fontSize: 25),
