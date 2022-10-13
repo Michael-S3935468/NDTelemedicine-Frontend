@@ -7,13 +7,19 @@ import 'package:provider/provider.dart';
 import '../state_models/Appointment.dart';
 import '../state_models/Booking.dart';
 
-class BookingAppointmentConfirmationPage extends StatelessWidget {
+class BookingAppointmentConfirmationPage extends StatefulWidget {
+  final String? jwt;
   const BookingAppointmentConfirmationPage({
-    Key? key,
+    Key? key, required this.jwt,
   }) : super(key: key);
 
+  @override
+  State<BookingAppointmentConfirmationPage> createState() => _BookingAppointmentConfirmationPageState();
+}
+
+class _BookingAppointmentConfirmationPageState extends State<BookingAppointmentConfirmationPage> {
   void _unBookAppointment(Appointment? appointment) async {
-    await BookingAPI().unBookAppointment(appointment);
+    await BookingAPI().unBookAppointment(appointment, widget.jwt);
   }
 
   @override
@@ -72,7 +78,7 @@ class BookingAppointmentConfirmationPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Dr. ${booking.doctor?.name}",
+                  "Dr. ${booking.doctor?.firstName} ${booking.doctor?.lastName}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,

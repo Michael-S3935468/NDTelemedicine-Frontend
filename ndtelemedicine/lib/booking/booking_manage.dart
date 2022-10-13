@@ -9,7 +9,9 @@ import '../state_models/Booking.dart';
 import 'booking-api/api_service.dart';
 
 class BookingManagePage extends StatefulWidget {
-  const BookingManagePage({Key? key}) : super(key: key);
+  final String? jwt;
+  final int? id;
+  const BookingManagePage({Key? key, required this.jwt, required this.id}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _BookingManagePage();
@@ -26,7 +28,7 @@ class _BookingManagePage extends State<BookingManagePage> {
   }
 
   void _getBooked() async {
-    _appointments = (await BookingAPI().getBooked())!;
+    _appointments = (await BookingAPI().getUserAppointments(widget.id, widget.jwt))!;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
@@ -88,7 +90,7 @@ class _BookingManagePage extends State<BookingManagePage> {
 
   // Builder that builds the list of appointments
   Widget _buildList(Appointment appointment) {
-    return Consumer<Booking>(builder: (context, booking, child) {
+    return Consumer2<Booking, Session>(builder: (context, booking, session, child) {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
         decoration: BoxDecoration(
@@ -115,12 +117,9 @@ class _BookingManagePage extends State<BookingManagePage> {
                         onPressed: () {
                           booking.endSession();
                           booking.setRemoveAppointment(appointment);
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    BookingAppointmentPage(bookingDate: appointment.start)
-                                )
-                              );
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => BookingAppointmentPage(
+                                  bookingDate: appointment.start, jwt: session.jwt)));
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.green,
@@ -133,14 +132,13 @@ class _BookingManagePage extends State<BookingManagePage> {
                   Padding(
                     padding:
                         const EdgeInsets.only(right: 10, top: 10, bottom: 10),
-                    // TODO : Show dialog to confirm deletion and delete if accepted
                     child: TextButton(
                       onPressed: () => showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                                 title: const Text("Cancel Appointment"),
                                 content: Text(
-                                    "Please confirm the cancellation of your appointment with Dr. x on ${DateFormat('d MMMM y').format(appointment.start)} during ${appointment.label}"),
+                                    "Please confirm the cancellation of your appointment with Dr${appointment.doctor.firstName} ${appointment.doctor.lastName} on ${DateFormat('d MMMM y').format(appointment.start)} during ${appointment.label}"),
                                 actions: [
                                   TextButton(
                                       onPressed: () => Navigator.pop(context),

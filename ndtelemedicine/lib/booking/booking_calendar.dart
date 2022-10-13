@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
+import 'package:ndtelemedicine/state_models/Session.dart';
 import 'package:provider/provider.dart';
 
 import '../state_models/Booking.dart';
@@ -67,8 +68,8 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
       dayHeaderTitleBuilder: _dayHeaderTitleBuilder,
     );
 
-    return Consumer<Booking>(
-      builder: (context, booking, child){
+    return Consumer2<Booking, Session>(
+      builder: (context, booking, session, child){
         return Scaffold(
           appBar: AppBar(
             backgroundColor: const Color.fromRGBO(21, 101, 192, 1),
@@ -136,7 +137,7 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
                         booking.setDate(_selectedDate);
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => BookingAppointmentPage(bookingDate: _selectedDate),
+                            builder: (context) => BookingAppointmentPage(bookingDate: _selectedDate, jwt: session.jwt,),
                           ),
                         );
                       },

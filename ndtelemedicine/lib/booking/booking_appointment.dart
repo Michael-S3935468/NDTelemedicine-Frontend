@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ndtelemedicine/state_models/Session.dart';
 import 'package:provider/provider.dart';
 
 import '../state_models/Booking.dart';
@@ -9,10 +10,12 @@ import '../state_models/Appointment.dart';
 
 class BookingAppointmentPage extends StatefulWidget {
   final DateTime bookingDate;
+  final String? jwt;
 
   const BookingAppointmentPage({
     Key? key,
     required this.bookingDate,
+    required this.jwt,
   }) : super(key: key);
 
   @override
@@ -31,7 +34,8 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
   }
 
   void _getAppointments() async {
-    _appointments = (await BookingAPI().getAppointments(widget.bookingDate))!;
+    _appointments =
+        (await BookingAPI().getAppointments(widget.bookingDate, widget.jwt))!;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     _loading = false;
   }
@@ -50,71 +54,75 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
         ],
       ),
-      body: Column(
-        children: [
-          // Header
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
-            child: const Text('Select a Time Slot',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 32,
-                  fontFamily: 'Inter',
-                )),
-          ),
-          const Divider(
-            thickness: 2,
-            color: Color.fromRGBO(112, 112, 112, 1),
-            indent: 25,
-            endIndent: 25,
-          ),
+      body: // Display list of appointments if any
+          (_loading)
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: [
+                    // Header
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin:
+                          const EdgeInsets.only(left: 25, right: 25, top: 25),
+                      child: const Text('Select a Time Slot',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 32,
+                            fontFamily: 'Inter',
+                          )),
+                    ),
+                    const Divider(
+                      thickness: 2,
+                      color: Color.fromRGBO(112, 112, 112, 1),
+                      indent: 25,
+                      endIndent: 25,
+                    ),
 
-          // Display date of the following appointments
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-            child: Center(
-              child: Text(
-                DateFormat('d MMMM y').format(widget.bookingDate),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontFamily: 'Inter',
-                  fontStyle: FontStyle.normal,
+                    // Display date of the following appointments
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 10),
+                      child: Center(
+                        child: Text(
+                          DateFormat('d MMMM y').format(widget.bookingDate),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontStyle: FontStyle.normal,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Expanded(
+                        child: ListView(
+                      children: [
+                        (_appointments!.isNotEmpty)
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: _appointments?.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        _buildList(_appointments![index]),
+                              )
+                            : const Center(
+                                child: Text(
+                                    "There are no appointments available on this day"),
+                              )
+                      ],
+                    ))
+                  ],
                 ),
-              ),
-            ),
-          ),
-
-          Expanded(
-              child: ListView(
-            children: [
-              // Display list of appointments if any
-              (_loading)
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : (_appointments!.isNotEmpty)
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _appointments?.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              _buildList(_appointments![index]),
-                        )
-                      : const Center(
-                          child: Text(
-                              "There are no appointments available on this day"),
-                        )
-            ],
-          ))
-        ],
-      ),
     );
   }
 
   // Widget that displays available appointments
   Widget _buildList(Appointment appointment) {
-    return Consumer<Booking>(builder: (context, booking, child) {
+    return Consumer2<Booking, Session>(
+        builder: (context, booking, session, child) {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
         decoration: BoxDecoration(
@@ -135,7 +143,8 @@ class _BookingAppointmentPageState extends State<BookingAppointmentPage> {
                       booking.setNewAppointment(appointment);
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              const BookingAppointmentConfirmationPage()));
+                              BookingAppointmentConfirmationPage(
+                                  jwt: session.jwt)));
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.green,
