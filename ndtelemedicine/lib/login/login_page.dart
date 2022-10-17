@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/login/login-api/api_service.dart';
+import 'package:ndtelemedicine/login/model/LoginResponse.dart';
 import 'package:ndtelemedicine/main.dart';
 import '/signup/signup.dart';
 import 'model/login.dart';
-
 
 void main() => runApp(const MyApp());
 
@@ -31,6 +31,21 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isObscure = true;
+  bool _loginSuccess = true;
+  bool _loading = false;
+
+  late LoginResponse _loginResponse;
+
+  void _logIn(LoginRequest loginRequest) async {
+    _loginResponse = (await LoginAPI().sendLogin(loginRequest));
+    _loginSuccess = _loginResponse.success;
+    _loading = false;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if (_loginResponse.success) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const MyHomePage()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +76,8 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
                   child: const Text(
                     "Login",
                     style: TextStyle(
@@ -83,8 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                         filled: true,
                         fillColor: Colors.white,
                         labelText: "Enter Email here",
-                        hintText:  "example@domain.net"
-                    ),
+                        hintText: "example@domain.net"),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter an email!";
@@ -107,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true,
                       fillColor: Colors.white,
                       labelText: "Enter password here",
-                      hintText:  "Password",
+                      hintText: "Password",
                       suffixIcon: IconButton(
                         icon: Icon(_isObscure
                             ? Icons.visibility_off
@@ -128,6 +143,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Column(children: <Widget>[
+                  (!_loginSuccess)
+                      ? Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.red,
+                          ),
+                          child: const Text(
+                            "Email and/or Password are incorrect!",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        )
+                      : const SizedBox(),
                   Container(
                     height: 50,
                     width: 350,
@@ -140,25 +169,30 @@ class _LoginPageState extends State<LoginPage> {
                       // Validation Check, checks if both email and password form are valid
                       onPressed: () {
                         if (_LoginKey.currentState!.validate()) {
-                          //If the form is valid, login is successful and proceed to home page
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const MyHomePage()
-                            )
-                          );
-                          LoginRequest(email: nameController.text, password: passwordController.text);
+                          setState(() {
+                            _loading = true;
+                          });
+                          _logIn(LoginRequest(
+                              email: nameController.text,
+                              password: passwordController.text));
                         }
                       },
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
+                      child: (_loading)
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              "Login",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 25),
+                            ),
                     ),
                   ),
                   Row(children: <Widget>[
                     Expanded(
                       child: Container(
-                          margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                          margin:
+                              const EdgeInsets.only(left: 10.0, right: 20.0),
                           child: const Divider(
                             color: Colors.black,
                             height: 36,
@@ -166,8 +200,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const Text("OR"),
                     Expanded(
-                      child: Container(    
-                          margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+                      child: Container(
+                          margin:
+                              const EdgeInsets.only(left: 20.0, right: 10.0),
                           child: const Divider(
                             color: Colors.black,
                             height: 36,
@@ -186,8 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const SignUpPage()));
                       },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.blueGrey),
+                      style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
                       child: const Text(
                         "Sign Up",
                         style: TextStyle(color: Colors.white, fontSize: 25),
