@@ -22,7 +22,8 @@ class _NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Notif> notifs = Notif.getNotif();
+    // Get a List of notifications
+    final List<Notif> notification = Notif.getNotif();
 
     return Scaffold(
         appBar: AppBar(
@@ -82,7 +83,7 @@ class _NotificationPage extends StatelessWidget {
             Expanded(
               //
               child: ListView.builder(
-                itemCount: notifs.length,
+                itemCount: notification.length,
                 itemBuilder: (context, index) {
                   // Displays the list of items as removable list by swiping either left or right to remove the item
                   return Dismissible(
@@ -105,10 +106,10 @@ class _NotificationPage extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    child: NotifItem(notifs: notifs[index]),
+                    child: NotifItem(notifs: notification[index]),
 
                     onDismissed: (direction) {
-                      notifs.removeAt(index);
+                      notification.removeAt(index);
 
                       // Show a snackbar (temporary banner) at the bottom of the screen to show that the item was deleted
                       ScaffoldMessenger.of(context).showSnackBar(

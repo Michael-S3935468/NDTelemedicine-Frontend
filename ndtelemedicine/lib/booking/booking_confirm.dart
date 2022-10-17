@@ -33,9 +33,6 @@ class _BookingAppointmentConfirmationPage extends State<BookingAppointmentConfir
           child: Image.asset('images/Header-Base.png'),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-        ],
       ),
       body: Column(
         children: [

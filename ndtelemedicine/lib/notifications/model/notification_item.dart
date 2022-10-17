@@ -8,6 +8,7 @@ class NotifItem extends StatelessWidget {
 
   final Notif notifs;
 
+  @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 20),

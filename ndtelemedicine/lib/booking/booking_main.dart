@@ -20,9 +20,6 @@ class _BookingPage extends State<BookingPage> {
           child:  Image.asset('images/Header-Base.png'),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-        ],
       ),
       body: Column(
         children: [

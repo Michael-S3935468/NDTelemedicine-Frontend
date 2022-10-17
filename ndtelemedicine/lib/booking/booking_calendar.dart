@@ -77,9 +77,6 @@ class _BookingCalendarPageState extends State<BookingCalendarPage> {
           child: Image.asset('images/Header-Base.png'),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-        ],
       ),
       body: Flex(
         direction: MediaQuery.of(context).orientation == Orientation.portrait
