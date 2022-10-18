@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import '../model/LoginResponse.dart';
-import '../model/login.dart';
+import '../../state_models/LoginResponse.dart';
+import '../../state_models/LoginRequest.dart';
 
 class LoginAPI {
   Future<LoginResponse> sendLogin(LoginRequest request) async {

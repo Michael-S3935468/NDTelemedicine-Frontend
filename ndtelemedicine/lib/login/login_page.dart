@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ndtelemedicine/login/login-api/api_service.dart';
-import 'package:ndtelemedicine/login/model/LoginResponse.dart';
+import 'package:ndtelemedicine/state_models/LoginResponse.dart';
 import 'package:ndtelemedicine/main.dart';
 import 'package:ndtelemedicine/state_models/Patient.dart';
 import 'package:ndtelemedicine/state_models/Session.dart';
 import 'package:provider/provider.dart';
 import '/signup/signup.dart';
-import 'model/login.dart';
+import '../state_models/LoginRequest.dart';
 
 void main() => runApp(const MyApp());
 

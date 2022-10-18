@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../state_models/User.dart';
+import 'User.dart';
 
 LoginResponse loginResponseFromJson(String str) => LoginResponse.fromJson(json.decode(str));
 LoginResponse loginResponseFailFromJson(String str) => LoginResponse.fromJsonFail(json.decode(str));
