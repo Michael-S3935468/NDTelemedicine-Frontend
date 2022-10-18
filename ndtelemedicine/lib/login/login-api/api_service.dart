@@ -19,7 +19,7 @@ class LoginAPI {
     } else if (response.statusCode == 401) {
       return loginResponseFailFromJson(response.body);
     } else {
-      throw Exception("Failed to login");
+      throw Exception("Error occurred when attempting to login");
     }
   }
 }
