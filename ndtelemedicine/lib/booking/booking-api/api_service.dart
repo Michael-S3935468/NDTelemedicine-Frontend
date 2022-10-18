@@ -59,32 +59,21 @@ class BookingAPI {
   }
 
   Future<List<Appointment>?> getUserAppointments(int? id, String? jwt) async {
-    // try {
-    //   // Call Microservice for available appointments
-    //   // TODO: Add actual endpoint uri
-    //   var url = Uri.parse('http://localhost:8080/appointment/user/$id');
-    //   // var url = Uri.parse("PUT API ENDPOINT HERE" "/$date");
-    //   var response = await http.get(url, headers: {
-    //     HttpHeaders.accessControlAllowOriginHeader: "*",
-    //     HttpHeaders.authorizationHeader: jwt.toString(),
-    //   });
-    //
-    //   // If response returned, make the appointment list
-    //   if (response.statusCode == 200) {
-    //     return appointmentFromJson(response.body);
-    //   }
-    // } catch (e) {
-    //   print(e);
-    // }
-    // return null;
-
-    // Temp solution
-    List<Appointment> temp = [];
-
-    temp.add(Appointment(start: DateTime(2022, 1, 1, 15, 15), end: DateTime(2022, 1, 1, 15, 30), label: "test", doctor: Doctor(User(id: 1, firstName: "firstName", lastName: "lastName", age: 50, sex: "Male", email: "email", password: "password")), patient: Patient(User(id: 1, firstName: "firstName", lastName: "lastName", age: 50, sex: "Male", email: "email", password: "password"))));
-    temp.add(Appointment(start: DateTime(2022, 1, 1, 15, 30), end: DateTime(2022, 1, 1, 15, 45), label: "test1", doctor: Doctor(User(id: 1, firstName: "firstName", lastName: "lastName", age: 50, sex: "Male", email: "email", password: "password")), patient: Patient(User(id: 1, firstName: "firstName", lastName: "lastName", age: 50, sex: "Male", email: "email", password: "password"))));
-
-    return temp;
+    try {
+      // Call Microservice for available appointments
+      var url = Uri.parse('http://localhost:8080/appointment/user/$id');
+      var response = await http.get(url, headers: {
+        HttpHeaders.accessControlAllowOriginHeader: "*",
+        HttpHeaders.authorizationHeader: jwt.toString(),
+      });
+          // If response returned, make the appointment list
+      if (response.statusCode == 200) {
+        return appointmentFromJson(response.body);
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   Future<bool> unBookAppointment(Appointment? appointment, String? jwt) async {
