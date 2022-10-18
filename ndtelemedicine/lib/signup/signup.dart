@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ndtelemedicine/login/login.dart';
+import 'package:ndtelemedicine/login/login_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -348,7 +348,7 @@ class _SignUpPage extends State<SignUpPage> {
                   child: ElevatedButton(
                     onPressed: onPressedSubmit,
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent),
+                        primary: Colors.blueAccent),
                     child: const Text(
                       "Sign Up",
                       style: TextStyle(color: Colors.white, fontSize: 25),

@@ -38,7 +38,7 @@ class _NotificationPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const MyHomePage(title: appTitle),
+                    builder: (context) => const MyHomePage(),
                   ),
                 );
               },
